@@ -1,0 +1,742 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyn.customer.service.mapper.CustomerInfoMapper">
+  <resultMap id="BaseResultMap" type="com.lyn.customer.api.entity.CustomerInfo">
+    <id column="customer_id" jdbcType="BIGINT" property="customerId" />
+    <result column="category" jdbcType="INTEGER" property="category" />
+    <result column="grade" jdbcType="CHAR" property="grade" />
+    <result column="customer_no" jdbcType="VARCHAR" property="customerNo" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="customer_type" jdbcType="INTEGER" property="customerType" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="district" jdbcType="VARCHAR" property="district" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="contact" jdbcType="VARCHAR" property="contact" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="fax" jdbcType="VARCHAR" property="fax" />
+    <result column="regist_date" jdbcType="VARCHAR" property="registDate" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="source" jdbcType="INTEGER" property="source" />
+    <result column="chan_follower" jdbcType="VARCHAR" property="chanFollower" />
+    <result column="coope_follower" jdbcType="VARCHAR" property="coopeFollower" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="confirm_status" jdbcType="INTEGER" property="confirmStatus" />
+    <result column="confirm_date" jdbcType="VARCHAR" property="confirmDate" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="VARCHAR" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="VARCHAR" property="updateDate" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.lyn.customer.api.entity.CustomerInfo">
+    <result column="card_id" jdbcType="LONGVARCHAR" property="cardId" />
+    <result column="license" jdbcType="LONGVARCHAR" property="license" />
+    <result column="permit" jdbcType="LONGVARCHAR" property="permit" />
+    <result column="store_photo" jdbcType="LONGVARCHAR" property="storePhoto" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    customer_id, category, grade, customer_no, customer_name, customer_type, nick_name, 
+    phone, province, city, district, address, contact, mobile, email, fax, regist_date, 
+    description, source, chan_follower, coope_follower, status, confirm_status, confirm_date, 
+    create_by, create_date, update_by, update_date, remark
+  </sql>
+  <sql id="Blob_Column_List">
+    card_id, license, permit, store_photo
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.lyn.customer.api.entity.CustomerInfoExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from customer_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.lyn.customer.api.entity.CustomerInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from customer_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from customer_info
+    where customer_id = #{customerId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from customer_info
+    where customer_id = #{customerId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lyn.customer.api.entity.CustomerInfoExample">
+    delete from customer_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lyn.customer.api.entity.CustomerInfo">
+    <selectKey keyProperty="customerId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into customer_info (category, grade, customer_no, 
+      customer_name, customer_type, nick_name, 
+      phone, province, city, 
+      district, address, contact, 
+      mobile, email, fax, 
+      regist_date, description, source, 
+      chan_follower, coope_follower, status, 
+      confirm_status, confirm_date, create_by, 
+      create_date, update_by, update_date, 
+      remark, card_id, license, 
+      permit, store_photo)
+    values (#{category,jdbcType=INTEGER}, #{grade,jdbcType=CHAR}, #{customerNo,jdbcType=VARCHAR}, 
+      #{customerName,jdbcType=VARCHAR}, #{customerType,jdbcType=INTEGER}, #{nickName,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{district,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{fax,jdbcType=VARCHAR}, 
+      #{registDate,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{source,jdbcType=INTEGER}, 
+      #{chanFollower,jdbcType=VARCHAR}, #{coopeFollower,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{confirmStatus,jdbcType=INTEGER}, #{confirmDate,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{cardId,jdbcType=LONGVARCHAR}, #{license,jdbcType=LONGVARCHAR}, 
+      #{permit,jdbcType=LONGVARCHAR}, #{storePhoto,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lyn.customer.api.entity.CustomerInfo">
+    <selectKey keyProperty="customerId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into customer_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="category != null">
+        category,
+      </if>
+      <if test="grade != null">
+        grade,
+      </if>
+      <if test="customerNo != null">
+        customer_no,
+      </if>
+      <if test="customerName != null">
+        customer_name,
+      </if>
+      <if test="customerType != null">
+        customer_type,
+      </if>
+      <if test="nickName != null">
+        nick_name,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="district != null">
+        district,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="contact != null">
+        contact,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="fax != null">
+        fax,
+      </if>
+      <if test="registDate != null">
+        regist_date,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="source != null">
+        source,
+      </if>
+      <if test="chanFollower != null">
+        chan_follower,
+      </if>
+      <if test="coopeFollower != null">
+        coope_follower,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="confirmStatus != null">
+        confirm_status,
+      </if>
+      <if test="confirmDate != null">
+        confirm_date,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="cardId != null">
+        card_id,
+      </if>
+      <if test="license != null">
+        license,
+      </if>
+      <if test="permit != null">
+        permit,
+      </if>
+      <if test="storePhoto != null">
+        store_photo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="category != null">
+        #{category,jdbcType=INTEGER},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=CHAR},
+      </if>
+      <if test="customerNo != null">
+        #{customerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null">
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerType != null">
+        #{customerType,jdbcType=INTEGER},
+      </if>
+      <if test="nickName != null">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null">
+        #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null">
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null">
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="registDate != null">
+        #{registDate,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=INTEGER},
+      </if>
+      <if test="chanFollower != null">
+        #{chanFollower,jdbcType=VARCHAR},
+      </if>
+      <if test="coopeFollower != null">
+        #{coopeFollower,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="confirmStatus != null">
+        #{confirmStatus,jdbcType=INTEGER},
+      </if>
+      <if test="confirmDate != null">
+        #{confirmDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null">
+        #{cardId,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="license != null">
+        #{license,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="permit != null">
+        #{permit,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="storePhoto != null">
+        #{storePhoto,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lyn.customer.api.entity.CustomerInfoExample" resultType="java.lang.Long">
+    select count(*) from customer_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update customer_info
+    <set>
+      <if test="record.customerId != null">
+        customer_id = #{record.customerId,jdbcType=BIGINT},
+      </if>
+      <if test="record.category != null">
+        category = #{record.category,jdbcType=INTEGER},
+      </if>
+      <if test="record.grade != null">
+        grade = #{record.grade,jdbcType=CHAR},
+      </if>
+      <if test="record.customerNo != null">
+        customer_no = #{record.customerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerName != null">
+        customer_name = #{record.customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerType != null">
+        customer_type = #{record.customerType,jdbcType=INTEGER},
+      </if>
+      <if test="record.nickName != null">
+        nick_name = #{record.nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null">
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null">
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.district != null">
+        district = #{record.district,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contact != null">
+        contact = #{record.contact,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null">
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fax != null">
+        fax = #{record.fax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registDate != null">
+        regist_date = #{record.registDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.source != null">
+        source = #{record.source,jdbcType=INTEGER},
+      </if>
+      <if test="record.chanFollower != null">
+        chan_follower = #{record.chanFollower,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coopeFollower != null">
+        coope_follower = #{record.coopeFollower,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.confirmStatus != null">
+        confirm_status = #{record.confirmStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.confirmDate != null">
+        confirm_date = #{record.confirmDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createBy != null">
+        create_by = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateBy != null">
+        update_by = #{record.updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateDate != null">
+        update_date = #{record.updateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardId != null">
+        card_id = #{record.cardId,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.license != null">
+        license = #{record.license,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.permit != null">
+        permit = #{record.permit,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.storePhoto != null">
+        store_photo = #{record.storePhoto,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update customer_info
+    set customer_id = #{record.customerId,jdbcType=BIGINT},
+      category = #{record.category,jdbcType=INTEGER},
+      grade = #{record.grade,jdbcType=CHAR},
+      customer_no = #{record.customerNo,jdbcType=VARCHAR},
+      customer_name = #{record.customerName,jdbcType=VARCHAR},
+      customer_type = #{record.customerType,jdbcType=INTEGER},
+      nick_name = #{record.nickName,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      district = #{record.district,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      contact = #{record.contact,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      fax = #{record.fax,jdbcType=VARCHAR},
+      regist_date = #{record.registDate,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      source = #{record.source,jdbcType=INTEGER},
+      chan_follower = #{record.chanFollower,jdbcType=VARCHAR},
+      coope_follower = #{record.coopeFollower,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      confirm_status = #{record.confirmStatus,jdbcType=INTEGER},
+      confirm_date = #{record.confirmDate,jdbcType=VARCHAR},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=VARCHAR},
+      update_by = #{record.updateBy,jdbcType=VARCHAR},
+      update_date = #{record.updateDate,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      card_id = #{record.cardId,jdbcType=LONGVARCHAR},
+      license = #{record.license,jdbcType=LONGVARCHAR},
+      permit = #{record.permit,jdbcType=LONGVARCHAR},
+      store_photo = #{record.storePhoto,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update customer_info
+    set customer_id = #{record.customerId,jdbcType=BIGINT},
+      category = #{record.category,jdbcType=INTEGER},
+      grade = #{record.grade,jdbcType=CHAR},
+      customer_no = #{record.customerNo,jdbcType=VARCHAR},
+      customer_name = #{record.customerName,jdbcType=VARCHAR},
+      customer_type = #{record.customerType,jdbcType=INTEGER},
+      nick_name = #{record.nickName,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      district = #{record.district,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      contact = #{record.contact,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      fax = #{record.fax,jdbcType=VARCHAR},
+      regist_date = #{record.registDate,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      source = #{record.source,jdbcType=INTEGER},
+      chan_follower = #{record.chanFollower,jdbcType=VARCHAR},
+      coope_follower = #{record.coopeFollower,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      confirm_status = #{record.confirmStatus,jdbcType=INTEGER},
+      confirm_date = #{record.confirmDate,jdbcType=VARCHAR},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=VARCHAR},
+      update_by = #{record.updateBy,jdbcType=VARCHAR},
+      update_date = #{record.updateDate,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lyn.customer.api.entity.CustomerInfo">
+    update customer_info
+    <set>
+      <if test="category != null">
+        category = #{category,jdbcType=INTEGER},
+      </if>
+      <if test="grade != null">
+        grade = #{grade,jdbcType=CHAR},
+      </if>
+      <if test="customerNo != null">
+        customer_no = #{customerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null">
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerType != null">
+        customer_type = #{customerType,jdbcType=INTEGER},
+      </if>
+      <if test="nickName != null">
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null">
+        district = #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null">
+        contact = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null">
+        fax = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="registDate != null">
+        regist_date = #{registDate,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        source = #{source,jdbcType=INTEGER},
+      </if>
+      <if test="chanFollower != null">
+        chan_follower = #{chanFollower,jdbcType=VARCHAR},
+      </if>
+      <if test="coopeFollower != null">
+        coope_follower = #{coopeFollower,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="confirmStatus != null">
+        confirm_status = #{confirmStatus,jdbcType=INTEGER},
+      </if>
+      <if test="confirmDate != null">
+        confirm_date = #{confirmDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null">
+        card_id = #{cardId,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="license != null">
+        license = #{license,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="permit != null">
+        permit = #{permit,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="storePhoto != null">
+        store_photo = #{storePhoto,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where customer_id = #{customerId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lyn.customer.api.entity.CustomerInfo">
+    update customer_info
+    set category = #{category,jdbcType=INTEGER},
+      grade = #{grade,jdbcType=CHAR},
+      customer_no = #{customerNo,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      customer_type = #{customerType,jdbcType=INTEGER},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      district = #{district,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      contact = #{contact,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      fax = #{fax,jdbcType=VARCHAR},
+      regist_date = #{registDate,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      source = #{source,jdbcType=INTEGER},
+      chan_follower = #{chanFollower,jdbcType=VARCHAR},
+      coope_follower = #{coopeFollower,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      confirm_status = #{confirmStatus,jdbcType=INTEGER},
+      confirm_date = #{confirmDate,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=VARCHAR},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      card_id = #{cardId,jdbcType=LONGVARCHAR},
+      license = #{license,jdbcType=LONGVARCHAR},
+      permit = #{permit,jdbcType=LONGVARCHAR},
+      store_photo = #{storePhoto,jdbcType=LONGVARCHAR}
+    where customer_id = #{customerId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lyn.customer.api.entity.CustomerInfo">
+    update customer_info
+    set category = #{category,jdbcType=INTEGER},
+      grade = #{grade,jdbcType=CHAR},
+      customer_no = #{customerNo,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      customer_type = #{customerType,jdbcType=INTEGER},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      district = #{district,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      contact = #{contact,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      fax = #{fax,jdbcType=VARCHAR},
+      regist_date = #{registDate,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      source = #{source,jdbcType=INTEGER},
+      chan_follower = #{chanFollower,jdbcType=VARCHAR},
+      coope_follower = #{coopeFollower,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      confirm_status = #{confirmStatus,jdbcType=INTEGER},
+      confirm_date = #{confirmDate,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=VARCHAR},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where customer_id = #{customerId,jdbcType=BIGINT}
+  </update>
+</mapper>

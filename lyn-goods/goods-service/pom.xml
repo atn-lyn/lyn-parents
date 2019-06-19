@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>lyn-goods</artifactId>
+        <groupId>com.lyn.goods</groupId>
+        <version>1.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.lyn.goods.service</groupId>
+    <artifactId>goods-service</artifactId>
+    <version>${lyn-goods.version}</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.lyn.common</groupId>
+            <artifactId>lyn-common</artifactId>
+            <version>${lyn-common.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lyn.goods.api</groupId>
+            <artifactId>goods-api</artifactId>
+            <version>${lyn-goods.version}</version>
+        </dependency>
+		<!-- dubbo 相关 -->
+        <dependency>
+            <groupId>com.alibaba.boot</groupId>
+            <artifactId>dubbo-spring-boot-starter</artifactId>
+        </dependency>
+        <!-- mysql数据库 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <!-- 打包 -->
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <executable>true</executable>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
