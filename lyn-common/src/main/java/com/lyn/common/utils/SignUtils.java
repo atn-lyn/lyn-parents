@@ -118,8 +118,8 @@ public class SignUtils {
         SortedMap<String,String> params = new TreeMap<String,String>();
        // params.put("mobile", "13312345678");
         //params.put("password", "sadswqwq2d12fe45sadswqwq2d12fe45");
-        params.put("goodsId", "0");
-        params.put("token", "d725675c04434967b1205fe9b7098b31");
+        params.put("goodsId", "1");
+        params.put("token", "06a57f72addc42dea6e628fed2d9b697");
         String sign = generateSign(JSONObject.toJSONString(params));
         System.out.println("sign = "+sign);
         params.put("sign", sign);
