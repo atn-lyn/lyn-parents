@@ -1,5 +1,13 @@
 package com.lyn.common.exception;
 
+/**
+ * <p>异常枚举类</p>
+ *
+ * @author lft
+ * @version 1.0
+ * @date 2019/6/15 0015
+ * @since jdk1.8
+ */
 public enum ExceptionEnum {
     SIGN_ERROR(1001, "签名异常"),
     PARAM_ERROR(1002, "参数异常"),

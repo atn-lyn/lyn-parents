@@ -1,16 +1,13 @@
 package com.lyn.web.aspect;
 
-import com.google.common.collect.Lists;
 import com.lyn.common.exception.DescribeException;
 import com.lyn.common.exception.ExceptionEnum;
 import com.lyn.common.utils.DeviceUtils;
 import com.lyn.common.utils.IllegalStrFilterUtils;
-import com.lyn.common.utils.RequestStr;
-import com.lyn.common.utils.ResultUtils;
+import com.lyn.web.exception.ExceptionHandler;
 import org.apache.catalina.connector.RequestFacade;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,7 +77,7 @@ public class WebAspect {
                 long constTime = clock.getTotalTimeMillis();
                 RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
                 HttpServletRequest request = (HttpServletRequest) requestAttributes.resolveReference(RequestAttributes.REFERENCE_REQUEST);
-                LOGGER.info("【AOP环绕通知】 接口响应时间 [" + className + "]" + "-" + "[" + request.getRequestURI() + "]" + "-" + "[" + request.getMethod() + "]" + " 请求耗时:" + constTime + "ms");
+                LOGGER.info("【AOP环绕通知】 接口[" + request.getRequestURI() + "]" + "-" + "[" + request.getMethod() + "]" + " 请求耗时:" + constTime + "ms");
             }
         }catch (Exception e) {
             result = exceptionHandler.exceptionGet(e);

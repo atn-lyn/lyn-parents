@@ -23,7 +23,6 @@ public class DescribeException extends RuntimeException {
 
     /**
      * 自定义错误信息
-     *
      * @param message
      * @param code
      */

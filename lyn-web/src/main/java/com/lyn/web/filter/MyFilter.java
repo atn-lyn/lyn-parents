@@ -24,7 +24,7 @@ import java.io.PrintWriter;
  * @date 2019/6/14 0014
  * @since jdk1.8
  */
-@WebFilter(filterName = "myFilter",urlPatterns = {"/*"})
+@WebFilter(filterName = "myFilter",urlPatterns = {"/api/*"})
 public class MyFilter implements Filter {
 
     private String[] NO_FILTER_TOKEN = {"/login"};

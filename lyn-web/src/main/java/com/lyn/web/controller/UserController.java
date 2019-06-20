@@ -8,7 +8,7 @@ import com.lyn.common.utils.RequestStr;
 import com.lyn.common.utils.ResultUtils;
 import com.lyn.sys.api.entity.UserInfo;
 import com.lyn.sys.api.service.UserService;
-import com.lyn.web.aspect.ExceptionHandler;
+import com.lyn.web.exception.ExceptionHandler;
 import com.lyn.web.constants.WebConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

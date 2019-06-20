@@ -1,4 +1,4 @@
-package com.lyn.web.aspect;
+package com.lyn.web.exception;
 
 import com.lyn.common.exception.DescribeException;
 import com.lyn.common.exception.ExceptionEnum;
@@ -29,7 +29,7 @@ public class ExceptionHandler {
             DescribeException exception = (DescribeException) e;
             return ResultUtils.error(exception.getCode(),exception.getMessage());
         }
-       // LOGGER.error("【系统异常】{}",e.getMessage());
+        LOGGER.error("【系统异常】{}",e.getMessage());
         return ResultUtils.exception(ExceptionEnum.SERVICE_ERROR);
     }
 
