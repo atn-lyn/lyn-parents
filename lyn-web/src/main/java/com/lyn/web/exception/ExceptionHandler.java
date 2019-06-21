@@ -32,5 +32,4 @@ public class ExceptionHandler {
         LOGGER.error("【系统异常】{}",e.getMessage());
         return ResultUtils.exception(ExceptionEnum.SERVICE_ERROR);
     }
-
 }

@@ -17,10 +17,28 @@ import java.util.List;
  */
 public interface UserService {
 
+    /**
+     * 添加用户
+     * @param userInfo
+     * @return
+     * @throws Exception
+     */
     int addUser(UserInfo userInfo) throws Exception;
 
+    /**
+     * 通过ID查询客户
+     * @param userId
+     * @return
+     * @throws Exception
+     */
     UserInfo findUserInfoById(Integer userId) throws Exception;
 
+    /**
+     * 通过ID删除
+     * @param userId
+     * @return
+     * @throws Exception
+     */
     int deleteUserInfo(Integer userId) throws Exception;
 
     UserInfo login(String mobile, String password) throws Exception;

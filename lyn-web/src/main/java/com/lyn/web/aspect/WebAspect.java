@@ -80,6 +80,7 @@ public class WebAspect {
                 LOGGER.info("【AOP环绕通知】 接口[" + request.getRequestURI() + "]" + "-" + "[" + request.getMethod() + "]" + " 请求耗时:" + constTime + "ms");
             }
         }catch (Exception e) {
+            LOGGER.error(e.getMessage(),e);
             result = exceptionHandler.exceptionGet(e);
         }
         return result;
