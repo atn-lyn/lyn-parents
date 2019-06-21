@@ -1,6 +1,6 @@
 # lyn-parents
 
-使用的技术：SpringBoot、Dubbo、Zookeeper、Redis、Kafka
+使用SpringBoot集成Dubbo、Zookeeper、Redis、Kafka实现的分布式开发微服务落点的电商项目实现。
 
 实现的功能：
 
