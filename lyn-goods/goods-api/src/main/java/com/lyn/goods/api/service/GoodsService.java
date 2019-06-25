@@ -9,4 +9,6 @@ public interface GoodsService {
     String test(String name);
 
     GoodsInfo findGoodsInfoByPrimary(int goodsId) throws Exception;
+
+    int addGoodsInfo(GoodsInfo goodsInfo) throws Exception;
 }

@@ -29,8 +29,9 @@ public class WebAspect {
     private ExceptionHandler exceptionHandler;
 
     private final String pointcut = "execution(* com.lyn.web.controller.*.*(..))";
+    private final String notCut = "!execution(* com.lyn.web.controller..*upload*(..))";
 
-    @Pointcut(pointcut)
+    @Pointcut(pointcut+ "&&" + notCut)
     public void executeService() {
 
     }

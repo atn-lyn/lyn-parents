@@ -51,6 +51,8 @@
         <!-- kafuka -->
         <kafka.version>2.2.0.RELEASE</kafka.version>
         <kafka-client.version>2.0.0</kafka-client.version>
+        <!-- FastDfs -->
+        <fastdfs-client.version>1.26.2</fastdfs-client.version>
     </properties>
 
     <!-- SpringBoot基础依赖 -->
@@ -137,6 +139,12 @@
                 <groupId>org.apache.kafka</groupId>
                 <artifactId>kafka-clients</artifactId>
                 <version>${kafka-client.version}</version>
+            </dependency>
+            <!-- fastDFS -->
+            <dependency>
+                    <groupId>com.github.tobato</groupId>
+                <artifactId>fastdfs-client</artifactId>
+                <version>${fastdfs-client.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

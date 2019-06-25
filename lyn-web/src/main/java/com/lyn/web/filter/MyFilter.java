@@ -9,6 +9,8 @@ import com.lyn.common.utils.ResultUtils;
 import com.lyn.sys.api.entity.UserInfo;
 import com.lyn.web.constants.WebConstant;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -52,8 +54,21 @@ public class MyFilter implements Filter {
             request.setAttribute("RequestStr",jsonString);
         }
         String requestStr = RequestStr.getRequestStr(request);
+        if(uri.indexOf("uploadFile") != -1){
+            String token = request.getParameter("token");
+            UserInfo userInfo = null;
+            if(!StringUtils.isEmpty(token) && null != (userInfo = (UserInfo) cacheService.getCacheByKey(WebConstant.LOGIN_CACHE_PREFIX+token))){
+                request.setAttribute(WebConstant.LOGIN_SESSION,userInfo);
+                filterChain.doFilter(servletRequest,servletResponse);
+            }else{
+                servletResponse.setContentType("application/json");
+                PrintWriter out = servletResponse.getWriter();
+                out.print(ResultUtils.exception(ExceptionEnum.LOGIN_ERROR).toString());
+                return;
+            }
+        }
         //校验签名
-        if(requestStr.indexOf("sign") != -1){
+        else if(requestStr.indexOf("sign") != -1){
             //校验签名
             if(SignUtils.checkSign(requestStr)){
                 //是否需要令牌

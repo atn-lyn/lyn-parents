@@ -5,11 +5,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.lyn.common.cache.CacheService;
 import com.lyn.common.exception.DescribeException;
 import com.lyn.common.exception.ExceptionEnum;
+import com.lyn.common.utils.FileUtils;
 import com.lyn.common.utils.RequestStr;
 import com.lyn.common.utils.ResultUtils;
 import com.lyn.goods.api.constants.GoodsConstant;
 import com.lyn.goods.api.entity.GoodsInfo;
 import com.lyn.goods.api.service.GoodsService;
+import com.lyn.sys.api.entity.UserInfo;
+import com.lyn.web.constants.WebConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Controller;
@@ -42,6 +45,25 @@ public class GoodsController {
 
     @Autowired
     private CacheService cacheService;
+
+    @RequestMapping(value = "add", method = RequestMethod.POST)
+    public Object addGoodsIfo(HttpServletRequest request) throws Exception {
+        UserInfo loginUser = (UserInfo) request.getAttribute(WebConstant.LOGIN_SESSION);
+        String requestStr = RequestStr.getRequestStr(request);
+        JSONObject jsonObj = JSONObject.parseObject(requestStr);
+        if(StringUtils.isEmpty(jsonObj.getString("goodsName"))
+                || StringUtils.isEmpty(jsonObj.getString("goodsCover"))
+                || StringUtils.isEmpty(jsonObj.getString("goodsDetail"))){
+            throw new DescribeException(ExceptionEnum.PARAM_ERROR);
+        }
+        GoodsInfo goodsInfo = new GoodsInfo();
+        goodsInfo.setGoodsName(jsonObj.getString("goodsName"));
+        goodsInfo.setGoodsCover(FileUtils.toShortUrl(jsonObj.getString("goodsCover")));
+        goodsInfo.setGoodsCover(FileUtils.toShortUrl(jsonObj.getString("goodsDetail")));
+        goodsInfo.setCreator(loginUser.getUserId());
+        goodsService.addGoodsInfo(goodsInfo);
+        return ResultUtils.success("ok");
+    }
 
     @RequestMapping(value = "detail", method = RequestMethod.POST)
     public Object detail(HttpServletRequest request) throws Exception {
@@ -78,6 +100,7 @@ public class GoodsController {
     private GoodsInfo getGoodsInfo(int goodsId) throws Exception{
         GoodsInfo goods = goodsService.findGoodsInfoByPrimary(goodsId);
         if (goods != null) {
+            goods.setGoodsCover(StringUtils.isEmpty(goods.getGoodsCover())?null: FileUtils.toFullUrl(goods.getGoodsCover()));
             Random random = new Random();
             if (goods.getIsHotSell()) {
                 //热门商品

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +33,15 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public GoodsInfo findGoodsInfoByPrimary(int goodsId) throws Exception {
         return goodsInfoMapper.selectByPrimaryKey(goodsId);
+    }
+
+    @Override
+    public int addGoodsInfo(GoodsInfo goodsInfo) throws Exception {
+        Date dt = new Date();
+        //TODO 业务代码
+
+        goodsInfo.setCreateTime(dt);
+        return goodsInfoMapper.insert(goodsInfo);
     }
 
     @KafkaListener(topics = {GoodsConstant.KAFKA_STATISTICS_GOODS_BYID})
