@@ -25,27 +25,11 @@ public class FileUtils {
 	private static final String[] STATIC_IMAGE_ARR = {"image/jpeg","image/png","image/jpg"};
 
 	private static String FILE_SERVER_DOMAIN;
-	private static String QINIU_SERVER_DOMAIN;
-	private static String LINUX_SERVER_DOMAIN;
 
-	public static String getImgServerDomain() {
-		return FILE_SERVER_DOMAIN;
-	}
-
-	public static String getLinuxServerDomain() {
-		return LINUX_SERVER_DOMAIN;
-	}
 	@Value("${file.server.url}")
 	public void setImgServerDomain(String imgServerDomain) {
 		this.FILE_SERVER_DOMAIN = imgServerDomain;
 	}
-	@Value("${file.server.qiniu}")
-	public void setQiniuServerDomain(String qiniuServerDomain) { QINIU_SERVER_DOMAIN = qiniuServerDomain; }
-	@Value("${linux.server.url}")
-	public void setLinuxServerDomain(String linuxServerDomain) {
-		this.LINUX_SERVER_DOMAIN = linuxServerDomain;
-	}
-
 	/**
 	 * <p>判断文件是否为静态图片</p>
 	 *
@@ -132,15 +116,9 @@ public class FileUtils {
 				return urlAddr;
 			} else {
 				String newAdr = filterUrl(urlAddr);
-				//校验是否为FastDFS存储文件
-				if (newAdr.indexOf("group1/M") != -1) {
-					newAdr = newAdr.startsWith("group1") ? newAdr : newAdr.substring(newAdr.indexOf("group1"), newAdr.length());
-					return FILE_SERVER_DOMAIN.endsWith("/") ? FILE_SERVER_DOMAIN : FILE_SERVER_DOMAIN + "/" + newAdr;
-				} else {
-					String domain = QINIU_SERVER_DOMAIN.endsWith("/") ? QINIU_SERVER_DOMAIN : QINIU_SERVER_DOMAIN + "/";
-					newAdr = newAdr.startsWith("/") ?newAdr.substring(1, newAdr.length()):newAdr;
-					return domain + newAdr;
-				}
+				String domain = FILE_SERVER_DOMAIN.endsWith("/") ? FILE_SERVER_DOMAIN : FILE_SERVER_DOMAIN + "/";
+				newAdr = newAdr.startsWith("/") ?newAdr.substring(1, newAdr.length()):newAdr;
+				return domain + newAdr;
 			}
 		}
 		return urlAddr;

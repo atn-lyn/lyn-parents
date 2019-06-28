@@ -53,6 +53,7 @@
         <kafka-client.version>2.0.0</kafka-client.version>
         <!-- FastDfs -->
         <fastdfs-client.version>1.26.2</fastdfs-client.version>
+        <org-redisson.version>3.7.5</org-redisson.version>
     </properties>
 
     <!-- SpringBoot基础依赖 -->
@@ -145,6 +146,12 @@
                     <groupId>com.github.tobato</groupId>
                 <artifactId>fastdfs-client</artifactId>
                 <version>${fastdfs-client.version}</version>
+            </dependency>
+            <!-- redisson -->
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${org-redisson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
