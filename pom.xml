@@ -54,6 +54,7 @@
         <!-- FastDfs -->
         <fastdfs-client.version>1.26.2</fastdfs-client.version>
         <org-redisson.version>3.7.5</org-redisson.version>
+        <apache-curator.version>4.2.0</apache-curator.version>
     </properties>
 
     <!-- SpringBoot基础依赖 -->
@@ -152,6 +153,29 @@
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson</artifactId>
                 <version>${org-redisson.version}</version>
+            </dependency>
+            <!-- curator (zk lock) -->
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-framework</artifactId>
+                <version>${apache-curator.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-recipes</artifactId>
+                <version>${apache-curator.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-api</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
         </dependencies>
     </dependencyManagement>

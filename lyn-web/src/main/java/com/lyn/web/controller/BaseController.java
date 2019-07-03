@@ -2,6 +2,7 @@ package com.lyn.web.controller;
 
 import com.lyn.common.exception.DescribeException;
 import com.lyn.common.exception.ExceptionEnum;
+import com.lyn.common.lock.DistributedLockByCurator;
 import com.lyn.common.lock.DistributedRedisLock;
 import com.lyn.common.utils.ResultUtils;
 import com.lyn.sys.api.entity.UserInfo;
@@ -27,6 +28,9 @@ public class BaseController {
 
     @Value("${fastdfs.file.domain}")
     private String FILE_DOMAIN;
+
+    @Autowired
+    private DistributedLockByCurator distributedLockByCurator;
 
     @Autowired
     private FastdfsService fastdfsService;
@@ -55,5 +59,37 @@ public class BaseController {
         //TODO 业务代码
         DistributedRedisLock.release(key);
         return ResultUtils.success("锁测试结束！");
+    }
+
+    @RequestMapping(value = "curatorlock1", method = RequestMethod.POST)
+    public Object curatorlock1(HttpServletRequest request) throws Exception{
+        String path = "test";
+        Boolean flag;
+        distributedLockByCurator.acquireLock(path);
+        try {
+            //TODO 业务代码
+            Thread.sleep(20000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            flag = distributedLockByCurator.release(path);
+        }
+        flag = distributedLockByCurator.release(path);
+        return ResultUtils.success(flag);
+    }
+
+    @RequestMapping(value = "curatorlock2", method = RequestMethod.POST)
+    public Object curatorlock2(HttpServletRequest request) throws Exception{
+        String path = "test";
+        Boolean flag;
+        distributedLockByCurator.acquireLock(path);
+        try {
+            //TODO 业务代码
+            Thread.sleep(15000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            flag = distributedLockByCurator.release(path);
+        }
+        flag = distributedLockByCurator.release(path);
+        return ResultUtils.success(flag);
     }
 }
