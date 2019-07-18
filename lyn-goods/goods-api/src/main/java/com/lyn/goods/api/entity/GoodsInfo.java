@@ -4,45 +4,89 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class GoodsInfo implements Serializable {
-    private Integer goodsId;
+    /**
+     * 商品ID
+     *
+     * @mbg.generated
+     */
+    private Long goodsId;
 
+    /**
+     * 商品编号
+     *
+     * @mbg.generated
+     */
     private String goodsNo;
 
+    /**
+     * 商品名
+     *
+     * @mbg.generated
+     */
     private String goodsName;
 
-    private String goodsCover;
+    /**
+     * title
+     *
+     * @mbg.generated
+     */
+    private String goodsTitle;
 
-    private String goodsCategory;
+    /**
+     * 主图
+     *
+     * @mbg.generated
+     */
+    private String goodsImg;
 
+    /**
+     * 分类ID
+     *
+     * @mbg.generated
+     */
+    private Integer categoryId;
+
+    /**
+     * 品牌ID
+     *
+     * @mbg.generated
+     */
+    private Integer brandId;
+
+    /**
+     * 商品详情
+     *
+     * @mbg.generated
+     */
     private String goodsDetail;
 
-    private Integer province;
-
-    private Integer city;
-
-    private Integer district;
-
-    private Integer status;
-
+    /**
+     * 是否为热销商品
+     *
+     * @mbg.generated
+     */
     private Boolean isHotSell;
+
+    /**
+     * 状态
+     *
+     * @mbg.generated
+     */
+    private Integer status;
 
     private Date createTime;
 
-    private Integer creator;
-
     private Date updateTime;
-
-    private Integer updater;
 
     private String remark;
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getGoodsId() {
+    public Long getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(Integer goodsId) {
+    public void setGoodsId(Long goodsId) {
         this.goodsId = goodsId;
     }
 
@@ -62,20 +106,36 @@ public class GoodsInfo implements Serializable {
         this.goodsName = goodsName;
     }
 
-    public String getGoodsCover() {
-        return goodsCover;
+    public String getGoodsTitle() {
+        return goodsTitle;
     }
 
-    public void setGoodsCover(String goodsCover) {
-        this.goodsCover = goodsCover;
+    public void setGoodsTitle(String goodsTitle) {
+        this.goodsTitle = goodsTitle;
     }
 
-    public String getGoodsCategory() {
-        return goodsCategory;
+    public String getGoodsImg() {
+        return goodsImg;
     }
 
-    public void setGoodsCategory(String goodsCategory) {
-        this.goodsCategory = goodsCategory;
+    public void setGoodsImg(String goodsImg) {
+        this.goodsImg = goodsImg;
+    }
+
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public Integer getBrandId() {
+        return brandId;
+    }
+
+    public void setBrandId(Integer brandId) {
+        this.brandId = brandId;
     }
 
     public String getGoodsDetail() {
@@ -86,28 +146,12 @@ public class GoodsInfo implements Serializable {
         this.goodsDetail = goodsDetail;
     }
 
-    public Integer getProvince() {
-        return province;
+    public Boolean getIsHotSell() {
+        return isHotSell;
     }
 
-    public void setProvince(Integer province) {
-        this.province = province;
-    }
-
-    public Integer getCity() {
-        return city;
-    }
-
-    public void setCity(Integer city) {
-        this.city = city;
-    }
-
-    public Integer getDistrict() {
-        return district;
-    }
-
-    public void setDistrict(Integer district) {
-        this.district = district;
+    public void setIsHotSell(Boolean isHotSell) {
+        this.isHotSell = isHotSell;
     }
 
     public Integer getStatus() {
@@ -118,14 +162,6 @@ public class GoodsInfo implements Serializable {
         this.status = status;
     }
 
-    public Boolean getIsHotSell() {
-        return isHotSell;
-    }
-
-    public void setIsHotSell(Boolean isHotSell) {
-        this.isHotSell = isHotSell;
-    }
-
     public Date getCreateTime() {
         return createTime;
     }
@@ -134,28 +170,12 @@ public class GoodsInfo implements Serializable {
         this.createTime = createTime;
     }
 
-    public Integer getCreator() {
-        return creator;
-    }
-
-    public void setCreator(Integer creator) {
-        this.creator = creator;
-    }
-
     public Date getUpdateTime() {
         return updateTime;
     }
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public Integer getUpdater() {
-        return updater;
-    }
-
-    public void setUpdater(Integer updater) {
-        this.updater = updater;
     }
 
     public String getRemark() {
@@ -175,18 +195,15 @@ public class GoodsInfo implements Serializable {
         sb.append(", goodsId=").append(goodsId);
         sb.append(", goodsNo=").append(goodsNo);
         sb.append(", goodsName=").append(goodsName);
-        sb.append(", goodsCover=").append(goodsCover);
-        sb.append(", goodsCategory=").append(goodsCategory);
+        sb.append(", goodsTitle=").append(goodsTitle);
+        sb.append(", goodsImg=").append(goodsImg);
+        sb.append(", categoryId=").append(categoryId);
+        sb.append(", brandId=").append(brandId);
         sb.append(", goodsDetail=").append(goodsDetail);
-        sb.append(", province=").append(province);
-        sb.append(", city=").append(city);
-        sb.append(", district=").append(district);
-        sb.append(", status=").append(status);
         sb.append(", isHotSell=").append(isHotSell);
+        sb.append(", status=").append(status);
         sb.append(", createTime=").append(createTime);
-        sb.append(", creator=").append(creator);
         sb.append(", updateTime=").append(updateTime);
-        sb.append(", updater=").append(updater);
         sb.append(", remark=").append(remark);
         sb.append("]");
         return sb.toString();
@@ -207,18 +224,15 @@ public class GoodsInfo implements Serializable {
         return (this.getGoodsId() == null ? other.getGoodsId() == null : this.getGoodsId().equals(other.getGoodsId()))
             && (this.getGoodsNo() == null ? other.getGoodsNo() == null : this.getGoodsNo().equals(other.getGoodsNo()))
             && (this.getGoodsName() == null ? other.getGoodsName() == null : this.getGoodsName().equals(other.getGoodsName()))
-            && (this.getGoodsCover() == null ? other.getGoodsCover() == null : this.getGoodsCover().equals(other.getGoodsCover()))
-            && (this.getGoodsCategory() == null ? other.getGoodsCategory() == null : this.getGoodsCategory().equals(other.getGoodsCategory()))
+            && (this.getGoodsTitle() == null ? other.getGoodsTitle() == null : this.getGoodsTitle().equals(other.getGoodsTitle()))
+            && (this.getGoodsImg() == null ? other.getGoodsImg() == null : this.getGoodsImg().equals(other.getGoodsImg()))
+            && (this.getCategoryId() == null ? other.getCategoryId() == null : this.getCategoryId().equals(other.getCategoryId()))
+            && (this.getBrandId() == null ? other.getBrandId() == null : this.getBrandId().equals(other.getBrandId()))
             && (this.getGoodsDetail() == null ? other.getGoodsDetail() == null : this.getGoodsDetail().equals(other.getGoodsDetail()))
-            && (this.getProvince() == null ? other.getProvince() == null : this.getProvince().equals(other.getProvince()))
-            && (this.getCity() == null ? other.getCity() == null : this.getCity().equals(other.getCity()))
-            && (this.getDistrict() == null ? other.getDistrict() == null : this.getDistrict().equals(other.getDistrict()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getIsHotSell() == null ? other.getIsHotSell() == null : this.getIsHotSell().equals(other.getIsHotSell()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getCreator() == null ? other.getCreator() == null : this.getCreator().equals(other.getCreator()))
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
-            && (this.getUpdater() == null ? other.getUpdater() == null : this.getUpdater().equals(other.getUpdater()))
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()));
     }
 
@@ -229,18 +243,15 @@ public class GoodsInfo implements Serializable {
         result = prime * result + ((getGoodsId() == null) ? 0 : getGoodsId().hashCode());
         result = prime * result + ((getGoodsNo() == null) ? 0 : getGoodsNo().hashCode());
         result = prime * result + ((getGoodsName() == null) ? 0 : getGoodsName().hashCode());
-        result = prime * result + ((getGoodsCover() == null) ? 0 : getGoodsCover().hashCode());
-        result = prime * result + ((getGoodsCategory() == null) ? 0 : getGoodsCategory().hashCode());
+        result = prime * result + ((getGoodsTitle() == null) ? 0 : getGoodsTitle().hashCode());
+        result = prime * result + ((getGoodsImg() == null) ? 0 : getGoodsImg().hashCode());
+        result = prime * result + ((getCategoryId() == null) ? 0 : getCategoryId().hashCode());
+        result = prime * result + ((getBrandId() == null) ? 0 : getBrandId().hashCode());
         result = prime * result + ((getGoodsDetail() == null) ? 0 : getGoodsDetail().hashCode());
-        result = prime * result + ((getProvince() == null) ? 0 : getProvince().hashCode());
-        result = prime * result + ((getCity() == null) ? 0 : getCity().hashCode());
-        result = prime * result + ((getDistrict() == null) ? 0 : getDistrict().hashCode());
-        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getIsHotSell() == null) ? 0 : getIsHotSell().hashCode());
+        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
-        result = prime * result + ((getCreator() == null) ? 0 : getCreator().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
-        result = prime * result + ((getUpdater() == null) ? 0 : getUpdater().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         return result;
     }

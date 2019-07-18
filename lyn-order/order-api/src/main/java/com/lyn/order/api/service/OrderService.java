@@ -6,5 +6,5 @@ public interface OrderService {
 
     String test(String name);
 
-    OrderInfo findOrderInfoByPromary(Integer orderId) throws Exception;
+    OrderInfo findOrderInfoByPromary(long orderId) throws Exception;
 }

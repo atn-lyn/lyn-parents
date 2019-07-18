@@ -2,21 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lyn.goods.service.mapper.GoodsInfoMapper">
   <resultMap id="BaseResultMap" type="com.lyn.goods.api.entity.GoodsInfo">
-    <id column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <id column="goods_id" jdbcType="BIGINT" property="goodsId" />
     <result column="goods_no" jdbcType="VARCHAR" property="goodsNo" />
     <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
-    <result column="goods_cover" jdbcType="VARCHAR" property="goodsCover" />
-    <result column="goods_category" jdbcType="CHAR" property="goodsCategory" />
+    <result column="goods_title" jdbcType="VARCHAR" property="goodsTitle" />
+    <result column="goods_img" jdbcType="VARCHAR" property="goodsImg" />
+    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="brand_id" jdbcType="INTEGER" property="brandId" />
     <result column="goods_detail" jdbcType="VARCHAR" property="goodsDetail" />
-    <result column="province" jdbcType="INTEGER" property="province" />
-    <result column="city" jdbcType="INTEGER" property="city" />
-    <result column="district" jdbcType="INTEGER" property="district" />
-    <result column="status" jdbcType="INTEGER" property="status" />
     <result column="is_hot_sell" jdbcType="BIT" property="isHotSell" />
+    <result column="status" jdbcType="INTEGER" property="status" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="creator" jdbcType="INTEGER" property="creator" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="updater" jdbcType="INTEGER" property="updater" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -78,9 +75,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    goods_id, goods_no, goods_name, goods_cover, goods_category, goods_detail, province, 
-    city, district, status, is_hot_sell, create_time, creator, update_time, updater, 
-    remark
+    goods_id, goods_no, goods_name, goods_title, goods_img, category_id, brand_id, goods_detail, 
+    is_hot_sell, status, create_time, update_time, remark
   </sql>
   <select id="selectByExample" parameterType="com.lyn.goods.api.entity.GoodsInfoExample" resultMap="BaseResultMap">
     select
@@ -96,15 +92,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from goods_info
-    where goods_id = #{goodsId,jdbcType=INTEGER}
+    where goods_id = #{goodsId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from goods_info
-    where goods_id = #{goodsId,jdbcType=INTEGER}
+    where goods_id = #{goodsId,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.lyn.goods.api.entity.GoodsInfoExample">
     delete from goods_info
@@ -113,24 +109,22 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.lyn.goods.api.entity.GoodsInfo">
-    <selectKey keyProperty="goodsId" order="AFTER" resultType="java.lang.Integer">
+    <selectKey keyProperty="goodsId" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into goods_info (goods_no, goods_name, goods_cover, 
-      goods_category, goods_detail, province, 
-      city, district, status, 
-      is_hot_sell, create_time, creator, 
-      update_time, updater, remark
+    insert into goods_info (goods_no, goods_name, goods_title, 
+      goods_img, category_id, brand_id, 
+      goods_detail, is_hot_sell, status, 
+      create_time, update_time, remark
       )
-    values (#{goodsNo,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, #{goodsCover,jdbcType=VARCHAR}, 
-      #{goodsCategory,jdbcType=CHAR}, #{goodsDetail,jdbcType=VARCHAR}, #{province,jdbcType=INTEGER}, 
-      #{city,jdbcType=INTEGER}, #{district,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
-      #{isHotSell,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=INTEGER}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}
+    values (#{goodsNo,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, #{goodsTitle,jdbcType=VARCHAR}, 
+      #{goodsImg,jdbcType=VARCHAR}, #{categoryId,jdbcType=INTEGER}, #{brandId,jdbcType=INTEGER}, 
+      #{goodsDetail,jdbcType=VARCHAR}, #{isHotSell,jdbcType=BIT}, #{status,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.lyn.goods.api.entity.GoodsInfo">
-    <selectKey keyProperty="goodsId" order="AFTER" resultType="java.lang.Integer">
+    <selectKey keyProperty="goodsId" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into goods_info
@@ -141,41 +135,32 @@
       <if test="goodsName != null">
         goods_name,
       </if>
-      <if test="goodsCover != null">
-        goods_cover,
+      <if test="goodsTitle != null">
+        goods_title,
       </if>
-      <if test="goodsCategory != null">
-        goods_category,
+      <if test="goodsImg != null">
+        goods_img,
+      </if>
+      <if test="categoryId != null">
+        category_id,
+      </if>
+      <if test="brandId != null">
+        brand_id,
       </if>
       <if test="goodsDetail != null">
         goods_detail,
       </if>
-      <if test="province != null">
-        province,
-      </if>
-      <if test="city != null">
-        city,
-      </if>
-      <if test="district != null">
-        district,
+      <if test="isHotSell != null">
+        is_hot_sell,
       </if>
       <if test="status != null">
         status,
       </if>
-      <if test="isHotSell != null">
-        is_hot_sell,
-      </if>
       <if test="createTime != null">
         create_time,
       </if>
-      <if test="creator != null">
-        creator,
-      </if>
       <if test="updateTime != null">
         update_time,
-      </if>
-      <if test="updater != null">
-        updater,
       </if>
       <if test="remark != null">
         remark,
@@ -188,41 +173,32 @@
       <if test="goodsName != null">
         #{goodsName,jdbcType=VARCHAR},
       </if>
-      <if test="goodsCover != null">
-        #{goodsCover,jdbcType=VARCHAR},
+      <if test="goodsTitle != null">
+        #{goodsTitle,jdbcType=VARCHAR},
       </if>
-      <if test="goodsCategory != null">
-        #{goodsCategory,jdbcType=CHAR},
+      <if test="goodsImg != null">
+        #{goodsImg,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="brandId != null">
+        #{brandId,jdbcType=INTEGER},
       </if>
       <if test="goodsDetail != null">
         #{goodsDetail,jdbcType=VARCHAR},
       </if>
-      <if test="province != null">
-        #{province,jdbcType=INTEGER},
-      </if>
-      <if test="city != null">
-        #{city,jdbcType=INTEGER},
-      </if>
-      <if test="district != null">
-        #{district,jdbcType=INTEGER},
+      <if test="isHotSell != null">
+        #{isHotSell,jdbcType=BIT},
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
       </if>
-      <if test="isHotSell != null">
-        #{isHotSell,jdbcType=BIT},
-      </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="creator != null">
-        #{creator,jdbcType=INTEGER},
-      </if>
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updater != null">
-        #{updater,jdbcType=INTEGER},
       </if>
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
@@ -239,7 +215,7 @@
     update goods_info
     <set>
       <if test="record.goodsId != null">
-        goods_id = #{record.goodsId,jdbcType=INTEGER},
+        goods_id = #{record.goodsId,jdbcType=BIGINT},
       </if>
       <if test="record.goodsNo != null">
         goods_no = #{record.goodsNo,jdbcType=VARCHAR},
@@ -247,41 +223,32 @@
       <if test="record.goodsName != null">
         goods_name = #{record.goodsName,jdbcType=VARCHAR},
       </if>
-      <if test="record.goodsCover != null">
-        goods_cover = #{record.goodsCover,jdbcType=VARCHAR},
+      <if test="record.goodsTitle != null">
+        goods_title = #{record.goodsTitle,jdbcType=VARCHAR},
       </if>
-      <if test="record.goodsCategory != null">
-        goods_category = #{record.goodsCategory,jdbcType=CHAR},
+      <if test="record.goodsImg != null">
+        goods_img = #{record.goodsImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.categoryId != null">
+        category_id = #{record.categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.brandId != null">
+        brand_id = #{record.brandId,jdbcType=INTEGER},
       </if>
       <if test="record.goodsDetail != null">
         goods_detail = #{record.goodsDetail,jdbcType=VARCHAR},
       </if>
-      <if test="record.province != null">
-        province = #{record.province,jdbcType=INTEGER},
-      </if>
-      <if test="record.city != null">
-        city = #{record.city,jdbcType=INTEGER},
-      </if>
-      <if test="record.district != null">
-        district = #{record.district,jdbcType=INTEGER},
+      <if test="record.isHotSell != null">
+        is_hot_sell = #{record.isHotSell,jdbcType=BIT},
       </if>
       <if test="record.status != null">
         status = #{record.status,jdbcType=INTEGER},
       </if>
-      <if test="record.isHotSell != null">
-        is_hot_sell = #{record.isHotSell,jdbcType=BIT},
-      </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.creator != null">
-        creator = #{record.creator,jdbcType=INTEGER},
-      </if>
       <if test="record.updateTime != null">
         update_time = #{record.updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.updater != null">
-        updater = #{record.updater,jdbcType=INTEGER},
       </if>
       <if test="record.remark != null">
         remark = #{record.remark,jdbcType=VARCHAR},
@@ -293,21 +260,18 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update goods_info
-    set goods_id = #{record.goodsId,jdbcType=INTEGER},
+    set goods_id = #{record.goodsId,jdbcType=BIGINT},
       goods_no = #{record.goodsNo,jdbcType=VARCHAR},
       goods_name = #{record.goodsName,jdbcType=VARCHAR},
-      goods_cover = #{record.goodsCover,jdbcType=VARCHAR},
-      goods_category = #{record.goodsCategory,jdbcType=CHAR},
+      goods_title = #{record.goodsTitle,jdbcType=VARCHAR},
+      goods_img = #{record.goodsImg,jdbcType=VARCHAR},
+      category_id = #{record.categoryId,jdbcType=INTEGER},
+      brand_id = #{record.brandId,jdbcType=INTEGER},
       goods_detail = #{record.goodsDetail,jdbcType=VARCHAR},
-      province = #{record.province,jdbcType=INTEGER},
-      city = #{record.city,jdbcType=INTEGER},
-      district = #{record.district,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=INTEGER},
       is_hot_sell = #{record.isHotSell,jdbcType=BIT},
+      status = #{record.status,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      creator = #{record.creator,jdbcType=INTEGER},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
-      updater = #{record.updater,jdbcType=INTEGER},
       remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -322,65 +286,53 @@
       <if test="goodsName != null">
         goods_name = #{goodsName,jdbcType=VARCHAR},
       </if>
-      <if test="goodsCover != null">
-        goods_cover = #{goodsCover,jdbcType=VARCHAR},
+      <if test="goodsTitle != null">
+        goods_title = #{goodsTitle,jdbcType=VARCHAR},
       </if>
-      <if test="goodsCategory != null">
-        goods_category = #{goodsCategory,jdbcType=CHAR},
+      <if test="goodsImg != null">
+        goods_img = #{goodsImg,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="brandId != null">
+        brand_id = #{brandId,jdbcType=INTEGER},
       </if>
       <if test="goodsDetail != null">
         goods_detail = #{goodsDetail,jdbcType=VARCHAR},
       </if>
-      <if test="province != null">
-        province = #{province,jdbcType=INTEGER},
-      </if>
-      <if test="city != null">
-        city = #{city,jdbcType=INTEGER},
-      </if>
-      <if test="district != null">
-        district = #{district,jdbcType=INTEGER},
+      <if test="isHotSell != null">
+        is_hot_sell = #{isHotSell,jdbcType=BIT},
       </if>
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
-      <if test="isHotSell != null">
-        is_hot_sell = #{isHotSell,jdbcType=BIT},
-      </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="creator != null">
-        creator = #{creator,jdbcType=INTEGER},
-      </if>
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updater != null">
-        updater = #{updater,jdbcType=INTEGER},
       </if>
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
-    where goods_id = #{goodsId,jdbcType=INTEGER}
+    where goods_id = #{goodsId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.lyn.goods.api.entity.GoodsInfo">
     update goods_info
     set goods_no = #{goodsNo,jdbcType=VARCHAR},
       goods_name = #{goodsName,jdbcType=VARCHAR},
-      goods_cover = #{goodsCover,jdbcType=VARCHAR},
-      goods_category = #{goodsCategory,jdbcType=CHAR},
+      goods_title = #{goodsTitle,jdbcType=VARCHAR},
+      goods_img = #{goodsImg,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      brand_id = #{brandId,jdbcType=INTEGER},
       goods_detail = #{goodsDetail,jdbcType=VARCHAR},
-      province = #{province,jdbcType=INTEGER},
-      city = #{city,jdbcType=INTEGER},
-      district = #{district,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER},
       is_hot_sell = #{isHotSell,jdbcType=BIT},
+      status = #{status,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      creator = #{creator,jdbcType=INTEGER},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
-      updater = #{updater,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR}
-    where goods_id = #{goodsId,jdbcType=INTEGER}
+    where goods_id = #{goodsId,jdbcType=BIGINT}
   </update>
 </mapper>

@@ -20,7 +20,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderInfo findOrderInfoByPromary(Integer orderId) throws Exception {
+    public OrderInfo findOrderInfoByPromary(long orderId) throws Exception {
         return orderInfoMapper.selectByPrimaryKey(orderId);
     }
 }

@@ -2,27 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lyn.order.service.mapper.OrderInfoMapper">
   <resultMap id="BaseResultMap" type="com.lyn.order.api.entity.OrderInfo">
-    <id column="order_id" jdbcType="INTEGER" property="orderId" />
+    <id column="order_id" jdbcType="BIGINT" property="orderId" />
     <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
-    <result column="order_status" jdbcType="INTEGER" property="orderStatus" />
+    <result column="store_id" jdbcType="INTEGER" property="storeId" />
     <result column="customer_id" jdbcType="BIGINT" property="customerId" />
-    <result column="total_discount" jdbcType="DOUBLE" property="totalDiscount" />
-    <result column="receiver_name" jdbcType="VARCHAR" property="receiverName" />
-    <result column="receiver_mobile" jdbcType="VARCHAR" property="receiverMobile" />
-    <result column="buyer_remark" jdbcType="VARCHAR" property="buyerRemark" />
-    <result column="product_num" jdbcType="INTEGER" property="productNum" />
-    <result column="order_amount" jdbcType="DOUBLE" property="orderAmount" />
-    <result column="pay_amount" jdbcType="DOUBLE" property="payAmount" />
-    <result column="payment_time" jdbcType="TIMESTAMP" property="paymentTime" />
-    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="specs_id" jdbcType="INTEGER" property="specsId" />
+    <result column="specs_desc" jdbcType="VARCHAR" property="specsDesc" />
+    <result column="sell_price" jdbcType="DECIMAL" property="sellPrice" />
+    <result column="sell_num" jdbcType="INTEGER" property="sellNum" />
+    <result column="sell_amount" jdbcType="DECIMAL" property="sellAmount" />
+    <result column="coup_amount" jdbcType="DECIMAL" property="coupAmount" />
+    <result column="status" jdbcType="INTEGER" property="status" />
     <result column="logistics_id" jdbcType="BIGINT" property="logisticsId" />
     <result column="shipping_no" jdbcType="VARCHAR" property="shippingNo" />
-    <result column="province" jdbcType="INTEGER" property="province" />
-    <result column="city" jdbcType="INTEGER" property="city" />
-    <result column="district" jdbcType="INTEGER" property="district" />
+    <result column="post_fee" jdbcType="DOUBLE" property="postFee" />
+    <result column="receiver_province" jdbcType="INTEGER" property="receiverProvince" />
+    <result column="receiver_city" jdbcType="INTEGER" property="receiverCity" />
+    <result column="receiver_district" jdbcType="INTEGER" property="receiverDistrict" />
+    <result column="receiver_name" jdbcType="VARCHAR" property="receiverName" />
+    <result column="receiver_mobile" jdbcType="VARCHAR" property="receiverMobile" />
     <result column="receiver_address" jdbcType="VARCHAR" property="receiverAddress" />
+    <result column="buyer_remark" jdbcType="VARCHAR" property="buyerRemark" />
     <result column="send_time" jdbcType="TIMESTAMP" property="sendTime" />
-    <result column="send_name" jdbcType="VARCHAR" property="sendName" />
+    <result column="sender_name" jdbcType="VARCHAR" property="senderName" />
     <result column="follower" jdbcType="VARCHAR" property="follower" />
     <result column="pay_method" jdbcType="INTEGER" property="payMethod" />
     <result column="trade_no" jdbcType="VARCHAR" property="tradeNo" />
@@ -30,6 +33,7 @@
     <result column="is_post" jdbcType="INTEGER" property="isPost" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -90,10 +94,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    order_id, order_no, order_status, customer_id, total_discount, receiver_name, receiver_mobile, 
-    buyer_remark, product_num, order_amount, pay_amount, payment_time, end_time, logistics_id, 
-    shipping_no, province, city, district, receiver_address, send_time, send_name, follower, 
-    pay_method, trade_no, is_delete, is_post, create_time, update_time
+    order_id, order_no, store_id, customer_id, goods_id, specs_id, specs_desc, sell_price, 
+    sell_num, sell_amount, coup_amount, status, logistics_id, shipping_no, post_fee, 
+    receiver_province, receiver_city, receiver_district, receiver_name, receiver_mobile, 
+    receiver_address, buyer_remark, send_time, sender_name, follower, pay_method, trade_no, 
+    is_delete, is_post, create_time, update_time, end_time
   </sql>
   <select id="selectByExample" parameterType="com.lyn.order.api.entity.OrderInfoExample" resultMap="BaseResultMap">
     select
@@ -109,15 +114,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from order_info
-    where order_id = #{orderId,jdbcType=INTEGER}
+    where order_id = #{orderId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from order_info
-    where order_id = #{orderId,jdbcType=INTEGER}
+    where order_id = #{orderId,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.lyn.order.api.entity.OrderInfoExample">
     delete from order_info
@@ -126,32 +131,34 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.lyn.order.api.entity.OrderInfo">
-    <selectKey keyProperty="orderId" order="AFTER" resultType="java.lang.Integer">
+    <selectKey keyProperty="orderId" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into order_info (order_no, order_status, customer_id, 
-      total_discount, receiver_name, receiver_mobile, 
-      buyer_remark, product_num, order_amount, 
-      pay_amount, payment_time, end_time, 
-      logistics_id, shipping_no, province, 
-      city, district, receiver_address, 
-      send_time, send_name, follower, 
+    insert into order_info (order_no, store_id, customer_id, 
+      goods_id, specs_id, specs_desc, 
+      sell_price, sell_num, sell_amount, 
+      coup_amount, status, logistics_id, 
+      shipping_no, post_fee, receiver_province, 
+      receiver_city, receiver_district, receiver_name, 
+      receiver_mobile, receiver_address, buyer_remark, 
+      send_time, sender_name, follower, 
       pay_method, trade_no, is_delete, 
-      is_post, create_time, update_time
-      )
-    values (#{orderNo,jdbcType=VARCHAR}, #{orderStatus,jdbcType=INTEGER}, #{customerId,jdbcType=BIGINT}, 
-      #{totalDiscount,jdbcType=DOUBLE}, #{receiverName,jdbcType=VARCHAR}, #{receiverMobile,jdbcType=VARCHAR}, 
-      #{buyerRemark,jdbcType=VARCHAR}, #{productNum,jdbcType=INTEGER}, #{orderAmount,jdbcType=DOUBLE}, 
-      #{payAmount,jdbcType=DOUBLE}, #{paymentTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
-      #{logisticsId,jdbcType=BIGINT}, #{shippingNo,jdbcType=VARCHAR}, #{province,jdbcType=INTEGER}, 
-      #{city,jdbcType=INTEGER}, #{district,jdbcType=INTEGER}, #{receiverAddress,jdbcType=VARCHAR}, 
-      #{sendTime,jdbcType=TIMESTAMP}, #{sendName,jdbcType=VARCHAR}, #{follower,jdbcType=VARCHAR}, 
+      is_post, create_time, update_time, 
+      end_time)
+    values (#{orderNo,jdbcType=VARCHAR}, #{storeId,jdbcType=INTEGER}, #{customerId,jdbcType=BIGINT}, 
+      #{goodsId,jdbcType=INTEGER}, #{specsId,jdbcType=INTEGER}, #{specsDesc,jdbcType=VARCHAR}, 
+      #{sellPrice,jdbcType=DECIMAL}, #{sellNum,jdbcType=INTEGER}, #{sellAmount,jdbcType=DECIMAL}, 
+      #{coupAmount,jdbcType=DECIMAL}, #{status,jdbcType=INTEGER}, #{logisticsId,jdbcType=BIGINT}, 
+      #{shippingNo,jdbcType=VARCHAR}, #{postFee,jdbcType=DOUBLE}, #{receiverProvince,jdbcType=INTEGER}, 
+      #{receiverCity,jdbcType=INTEGER}, #{receiverDistrict,jdbcType=INTEGER}, #{receiverName,jdbcType=VARCHAR}, 
+      #{receiverMobile,jdbcType=VARCHAR}, #{receiverAddress,jdbcType=VARCHAR}, #{buyerRemark,jdbcType=VARCHAR}, 
+      #{sendTime,jdbcType=TIMESTAMP}, #{senderName,jdbcType=VARCHAR}, #{follower,jdbcType=VARCHAR}, 
       #{payMethod,jdbcType=INTEGER}, #{tradeNo,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}, 
-      #{isPost,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+      #{isPost,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.lyn.order.api.entity.OrderInfo">
-    <selectKey keyProperty="orderId" order="AFTER" resultType="java.lang.Integer">
+    <selectKey keyProperty="orderId" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into order_info
@@ -159,38 +166,35 @@
       <if test="orderNo != null">
         order_no,
       </if>
-      <if test="orderStatus != null">
-        order_status,
+      <if test="storeId != null">
+        store_id,
       </if>
       <if test="customerId != null">
         customer_id,
       </if>
-      <if test="totalDiscount != null">
-        total_discount,
+      <if test="goodsId != null">
+        goods_id,
       </if>
-      <if test="receiverName != null">
-        receiver_name,
+      <if test="specsId != null">
+        specs_id,
       </if>
-      <if test="receiverMobile != null">
-        receiver_mobile,
+      <if test="specsDesc != null">
+        specs_desc,
       </if>
-      <if test="buyerRemark != null">
-        buyer_remark,
+      <if test="sellPrice != null">
+        sell_price,
       </if>
-      <if test="productNum != null">
-        product_num,
+      <if test="sellNum != null">
+        sell_num,
       </if>
-      <if test="orderAmount != null">
-        order_amount,
+      <if test="sellAmount != null">
+        sell_amount,
       </if>
-      <if test="payAmount != null">
-        pay_amount,
+      <if test="coupAmount != null">
+        coup_amount,
       </if>
-      <if test="paymentTime != null">
-        payment_time,
-      </if>
-      <if test="endTime != null">
-        end_time,
+      <if test="status != null">
+        status,
       </if>
       <if test="logisticsId != null">
         logistics_id,
@@ -198,23 +202,35 @@
       <if test="shippingNo != null">
         shipping_no,
       </if>
-      <if test="province != null">
-        province,
+      <if test="postFee != null">
+        post_fee,
       </if>
-      <if test="city != null">
-        city,
+      <if test="receiverProvince != null">
+        receiver_province,
       </if>
-      <if test="district != null">
-        district,
+      <if test="receiverCity != null">
+        receiver_city,
+      </if>
+      <if test="receiverDistrict != null">
+        receiver_district,
+      </if>
+      <if test="receiverName != null">
+        receiver_name,
+      </if>
+      <if test="receiverMobile != null">
+        receiver_mobile,
       </if>
       <if test="receiverAddress != null">
         receiver_address,
       </if>
+      <if test="buyerRemark != null">
+        buyer_remark,
+      </if>
       <if test="sendTime != null">
         send_time,
       </if>
-      <if test="sendName != null">
-        send_name,
+      <if test="senderName != null">
+        sender_name,
       </if>
       <if test="follower != null">
         follower,
@@ -237,43 +253,43 @@
       <if test="updateTime != null">
         update_time,
       </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="orderNo != null">
         #{orderNo,jdbcType=VARCHAR},
       </if>
-      <if test="orderStatus != null">
-        #{orderStatus,jdbcType=INTEGER},
+      <if test="storeId != null">
+        #{storeId,jdbcType=INTEGER},
       </if>
       <if test="customerId != null">
         #{customerId,jdbcType=BIGINT},
       </if>
-      <if test="totalDiscount != null">
-        #{totalDiscount,jdbcType=DOUBLE},
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
       </if>
-      <if test="receiverName != null">
-        #{receiverName,jdbcType=VARCHAR},
+      <if test="specsId != null">
+        #{specsId,jdbcType=INTEGER},
       </if>
-      <if test="receiverMobile != null">
-        #{receiverMobile,jdbcType=VARCHAR},
+      <if test="specsDesc != null">
+        #{specsDesc,jdbcType=VARCHAR},
       </if>
-      <if test="buyerRemark != null">
-        #{buyerRemark,jdbcType=VARCHAR},
+      <if test="sellPrice != null">
+        #{sellPrice,jdbcType=DECIMAL},
       </if>
-      <if test="productNum != null">
-        #{productNum,jdbcType=INTEGER},
+      <if test="sellNum != null">
+        #{sellNum,jdbcType=INTEGER},
       </if>
-      <if test="orderAmount != null">
-        #{orderAmount,jdbcType=DOUBLE},
+      <if test="sellAmount != null">
+        #{sellAmount,jdbcType=DECIMAL},
       </if>
-      <if test="payAmount != null">
-        #{payAmount,jdbcType=DOUBLE},
+      <if test="coupAmount != null">
+        #{coupAmount,jdbcType=DECIMAL},
       </if>
-      <if test="paymentTime != null">
-        #{paymentTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null">
-        #{endTime,jdbcType=TIMESTAMP},
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="logisticsId != null">
         #{logisticsId,jdbcType=BIGINT},
@@ -281,23 +297,35 @@
       <if test="shippingNo != null">
         #{shippingNo,jdbcType=VARCHAR},
       </if>
-      <if test="province != null">
-        #{province,jdbcType=INTEGER},
+      <if test="postFee != null">
+        #{postFee,jdbcType=DOUBLE},
       </if>
-      <if test="city != null">
-        #{city,jdbcType=INTEGER},
+      <if test="receiverProvince != null">
+        #{receiverProvince,jdbcType=INTEGER},
       </if>
-      <if test="district != null">
-        #{district,jdbcType=INTEGER},
+      <if test="receiverCity != null">
+        #{receiverCity,jdbcType=INTEGER},
+      </if>
+      <if test="receiverDistrict != null">
+        #{receiverDistrict,jdbcType=INTEGER},
+      </if>
+      <if test="receiverName != null">
+        #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverMobile != null">
+        #{receiverMobile,jdbcType=VARCHAR},
       </if>
       <if test="receiverAddress != null">
         #{receiverAddress,jdbcType=VARCHAR},
       </if>
+      <if test="buyerRemark != null">
+        #{buyerRemark,jdbcType=VARCHAR},
+      </if>
       <if test="sendTime != null">
         #{sendTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="sendName != null">
-        #{sendName,jdbcType=VARCHAR},
+      <if test="senderName != null">
+        #{senderName,jdbcType=VARCHAR},
       </if>
       <if test="follower != null">
         #{follower,jdbcType=VARCHAR},
@@ -320,6 +348,9 @@
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.lyn.order.api.entity.OrderInfoExample" resultType="java.lang.Long">
@@ -332,43 +363,40 @@
     update order_info
     <set>
       <if test="record.orderId != null">
-        order_id = #{record.orderId,jdbcType=INTEGER},
+        order_id = #{record.orderId,jdbcType=BIGINT},
       </if>
       <if test="record.orderNo != null">
         order_no = #{record.orderNo,jdbcType=VARCHAR},
       </if>
-      <if test="record.orderStatus != null">
-        order_status = #{record.orderStatus,jdbcType=INTEGER},
+      <if test="record.storeId != null">
+        store_id = #{record.storeId,jdbcType=INTEGER},
       </if>
       <if test="record.customerId != null">
         customer_id = #{record.customerId,jdbcType=BIGINT},
       </if>
-      <if test="record.totalDiscount != null">
-        total_discount = #{record.totalDiscount,jdbcType=DOUBLE},
+      <if test="record.goodsId != null">
+        goods_id = #{record.goodsId,jdbcType=INTEGER},
       </if>
-      <if test="record.receiverName != null">
-        receiver_name = #{record.receiverName,jdbcType=VARCHAR},
+      <if test="record.specsId != null">
+        specs_id = #{record.specsId,jdbcType=INTEGER},
       </if>
-      <if test="record.receiverMobile != null">
-        receiver_mobile = #{record.receiverMobile,jdbcType=VARCHAR},
+      <if test="record.specsDesc != null">
+        specs_desc = #{record.specsDesc,jdbcType=VARCHAR},
       </if>
-      <if test="record.buyerRemark != null">
-        buyer_remark = #{record.buyerRemark,jdbcType=VARCHAR},
+      <if test="record.sellPrice != null">
+        sell_price = #{record.sellPrice,jdbcType=DECIMAL},
       </if>
-      <if test="record.productNum != null">
-        product_num = #{record.productNum,jdbcType=INTEGER},
+      <if test="record.sellNum != null">
+        sell_num = #{record.sellNum,jdbcType=INTEGER},
       </if>
-      <if test="record.orderAmount != null">
-        order_amount = #{record.orderAmount,jdbcType=DOUBLE},
+      <if test="record.sellAmount != null">
+        sell_amount = #{record.sellAmount,jdbcType=DECIMAL},
       </if>
-      <if test="record.payAmount != null">
-        pay_amount = #{record.payAmount,jdbcType=DOUBLE},
+      <if test="record.coupAmount != null">
+        coup_amount = #{record.coupAmount,jdbcType=DECIMAL},
       </if>
-      <if test="record.paymentTime != null">
-        payment_time = #{record.paymentTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.endTime != null">
-        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
       </if>
       <if test="record.logisticsId != null">
         logistics_id = #{record.logisticsId,jdbcType=BIGINT},
@@ -376,23 +404,35 @@
       <if test="record.shippingNo != null">
         shipping_no = #{record.shippingNo,jdbcType=VARCHAR},
       </if>
-      <if test="record.province != null">
-        province = #{record.province,jdbcType=INTEGER},
+      <if test="record.postFee != null">
+        post_fee = #{record.postFee,jdbcType=DOUBLE},
       </if>
-      <if test="record.city != null">
-        city = #{record.city,jdbcType=INTEGER},
+      <if test="record.receiverProvince != null">
+        receiver_province = #{record.receiverProvince,jdbcType=INTEGER},
       </if>
-      <if test="record.district != null">
-        district = #{record.district,jdbcType=INTEGER},
+      <if test="record.receiverCity != null">
+        receiver_city = #{record.receiverCity,jdbcType=INTEGER},
+      </if>
+      <if test="record.receiverDistrict != null">
+        receiver_district = #{record.receiverDistrict,jdbcType=INTEGER},
+      </if>
+      <if test="record.receiverName != null">
+        receiver_name = #{record.receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiverMobile != null">
+        receiver_mobile = #{record.receiverMobile,jdbcType=VARCHAR},
       </if>
       <if test="record.receiverAddress != null">
         receiver_address = #{record.receiverAddress,jdbcType=VARCHAR},
       </if>
+      <if test="record.buyerRemark != null">
+        buyer_remark = #{record.buyerRemark,jdbcType=VARCHAR},
+      </if>
       <if test="record.sendTime != null">
         send_time = #{record.sendTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.sendName != null">
-        send_name = #{record.sendName,jdbcType=VARCHAR},
+      <if test="record.senderName != null">
+        sender_name = #{record.senderName,jdbcType=VARCHAR},
       </if>
       <if test="record.follower != null">
         follower = #{record.follower,jdbcType=VARCHAR},
@@ -415,6 +455,9 @@
       <if test="record.updateTime != null">
         update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.endTime != null">
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -422,34 +465,38 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update order_info
-    set order_id = #{record.orderId,jdbcType=INTEGER},
+    set order_id = #{record.orderId,jdbcType=BIGINT},
       order_no = #{record.orderNo,jdbcType=VARCHAR},
-      order_status = #{record.orderStatus,jdbcType=INTEGER},
+      store_id = #{record.storeId,jdbcType=INTEGER},
       customer_id = #{record.customerId,jdbcType=BIGINT},
-      total_discount = #{record.totalDiscount,jdbcType=DOUBLE},
-      receiver_name = #{record.receiverName,jdbcType=VARCHAR},
-      receiver_mobile = #{record.receiverMobile,jdbcType=VARCHAR},
-      buyer_remark = #{record.buyerRemark,jdbcType=VARCHAR},
-      product_num = #{record.productNum,jdbcType=INTEGER},
-      order_amount = #{record.orderAmount,jdbcType=DOUBLE},
-      pay_amount = #{record.payAmount,jdbcType=DOUBLE},
-      payment_time = #{record.paymentTime,jdbcType=TIMESTAMP},
-      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      goods_id = #{record.goodsId,jdbcType=INTEGER},
+      specs_id = #{record.specsId,jdbcType=INTEGER},
+      specs_desc = #{record.specsDesc,jdbcType=VARCHAR},
+      sell_price = #{record.sellPrice,jdbcType=DECIMAL},
+      sell_num = #{record.sellNum,jdbcType=INTEGER},
+      sell_amount = #{record.sellAmount,jdbcType=DECIMAL},
+      coup_amount = #{record.coupAmount,jdbcType=DECIMAL},
+      status = #{record.status,jdbcType=INTEGER},
       logistics_id = #{record.logisticsId,jdbcType=BIGINT},
       shipping_no = #{record.shippingNo,jdbcType=VARCHAR},
-      province = #{record.province,jdbcType=INTEGER},
-      city = #{record.city,jdbcType=INTEGER},
-      district = #{record.district,jdbcType=INTEGER},
+      post_fee = #{record.postFee,jdbcType=DOUBLE},
+      receiver_province = #{record.receiverProvince,jdbcType=INTEGER},
+      receiver_city = #{record.receiverCity,jdbcType=INTEGER},
+      receiver_district = #{record.receiverDistrict,jdbcType=INTEGER},
+      receiver_name = #{record.receiverName,jdbcType=VARCHAR},
+      receiver_mobile = #{record.receiverMobile,jdbcType=VARCHAR},
       receiver_address = #{record.receiverAddress,jdbcType=VARCHAR},
+      buyer_remark = #{record.buyerRemark,jdbcType=VARCHAR},
       send_time = #{record.sendTime,jdbcType=TIMESTAMP},
-      send_name = #{record.sendName,jdbcType=VARCHAR},
+      sender_name = #{record.senderName,jdbcType=VARCHAR},
       follower = #{record.follower,jdbcType=VARCHAR},
       pay_method = #{record.payMethod,jdbcType=INTEGER},
       trade_no = #{record.tradeNo,jdbcType=VARCHAR},
       is_delete = #{record.isDelete,jdbcType=INTEGER},
       is_post = #{record.isPost,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -460,38 +507,35 @@
       <if test="orderNo != null">
         order_no = #{orderNo,jdbcType=VARCHAR},
       </if>
-      <if test="orderStatus != null">
-        order_status = #{orderStatus,jdbcType=INTEGER},
+      <if test="storeId != null">
+        store_id = #{storeId,jdbcType=INTEGER},
       </if>
       <if test="customerId != null">
         customer_id = #{customerId,jdbcType=BIGINT},
       </if>
-      <if test="totalDiscount != null">
-        total_discount = #{totalDiscount,jdbcType=DOUBLE},
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=INTEGER},
       </if>
-      <if test="receiverName != null">
-        receiver_name = #{receiverName,jdbcType=VARCHAR},
+      <if test="specsId != null">
+        specs_id = #{specsId,jdbcType=INTEGER},
       </if>
-      <if test="receiverMobile != null">
-        receiver_mobile = #{receiverMobile,jdbcType=VARCHAR},
+      <if test="specsDesc != null">
+        specs_desc = #{specsDesc,jdbcType=VARCHAR},
       </if>
-      <if test="buyerRemark != null">
-        buyer_remark = #{buyerRemark,jdbcType=VARCHAR},
+      <if test="sellPrice != null">
+        sell_price = #{sellPrice,jdbcType=DECIMAL},
       </if>
-      <if test="productNum != null">
-        product_num = #{productNum,jdbcType=INTEGER},
+      <if test="sellNum != null">
+        sell_num = #{sellNum,jdbcType=INTEGER},
       </if>
-      <if test="orderAmount != null">
-        order_amount = #{orderAmount,jdbcType=DOUBLE},
+      <if test="sellAmount != null">
+        sell_amount = #{sellAmount,jdbcType=DECIMAL},
       </if>
-      <if test="payAmount != null">
-        pay_amount = #{payAmount,jdbcType=DOUBLE},
+      <if test="coupAmount != null">
+        coup_amount = #{coupAmount,jdbcType=DECIMAL},
       </if>
-      <if test="paymentTime != null">
-        payment_time = #{paymentTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null">
-        end_time = #{endTime,jdbcType=TIMESTAMP},
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
       </if>
       <if test="logisticsId != null">
         logistics_id = #{logisticsId,jdbcType=BIGINT},
@@ -499,23 +543,35 @@
       <if test="shippingNo != null">
         shipping_no = #{shippingNo,jdbcType=VARCHAR},
       </if>
-      <if test="province != null">
-        province = #{province,jdbcType=INTEGER},
+      <if test="postFee != null">
+        post_fee = #{postFee,jdbcType=DOUBLE},
       </if>
-      <if test="city != null">
-        city = #{city,jdbcType=INTEGER},
+      <if test="receiverProvince != null">
+        receiver_province = #{receiverProvince,jdbcType=INTEGER},
       </if>
-      <if test="district != null">
-        district = #{district,jdbcType=INTEGER},
+      <if test="receiverCity != null">
+        receiver_city = #{receiverCity,jdbcType=INTEGER},
+      </if>
+      <if test="receiverDistrict != null">
+        receiver_district = #{receiverDistrict,jdbcType=INTEGER},
+      </if>
+      <if test="receiverName != null">
+        receiver_name = #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverMobile != null">
+        receiver_mobile = #{receiverMobile,jdbcType=VARCHAR},
       </if>
       <if test="receiverAddress != null">
         receiver_address = #{receiverAddress,jdbcType=VARCHAR},
       </if>
+      <if test="buyerRemark != null">
+        buyer_remark = #{buyerRemark,jdbcType=VARCHAR},
+      </if>
       <if test="sendTime != null">
         send_time = #{sendTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="sendName != null">
-        send_name = #{sendName,jdbcType=VARCHAR},
+      <if test="senderName != null">
+        sender_name = #{senderName,jdbcType=VARCHAR},
       </if>
       <if test="follower != null">
         follower = #{follower,jdbcType=VARCHAR},
@@ -538,38 +594,45 @@
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
-    where order_id = #{orderId,jdbcType=INTEGER}
+    where order_id = #{orderId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.lyn.order.api.entity.OrderInfo">
     update order_info
     set order_no = #{orderNo,jdbcType=VARCHAR},
-      order_status = #{orderStatus,jdbcType=INTEGER},
+      store_id = #{storeId,jdbcType=INTEGER},
       customer_id = #{customerId,jdbcType=BIGINT},
-      total_discount = #{totalDiscount,jdbcType=DOUBLE},
-      receiver_name = #{receiverName,jdbcType=VARCHAR},
-      receiver_mobile = #{receiverMobile,jdbcType=VARCHAR},
-      buyer_remark = #{buyerRemark,jdbcType=VARCHAR},
-      product_num = #{productNum,jdbcType=INTEGER},
-      order_amount = #{orderAmount,jdbcType=DOUBLE},
-      pay_amount = #{payAmount,jdbcType=DOUBLE},
-      payment_time = #{paymentTime,jdbcType=TIMESTAMP},
-      end_time = #{endTime,jdbcType=TIMESTAMP},
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      specs_id = #{specsId,jdbcType=INTEGER},
+      specs_desc = #{specsDesc,jdbcType=VARCHAR},
+      sell_price = #{sellPrice,jdbcType=DECIMAL},
+      sell_num = #{sellNum,jdbcType=INTEGER},
+      sell_amount = #{sellAmount,jdbcType=DECIMAL},
+      coup_amount = #{coupAmount,jdbcType=DECIMAL},
+      status = #{status,jdbcType=INTEGER},
       logistics_id = #{logisticsId,jdbcType=BIGINT},
       shipping_no = #{shippingNo,jdbcType=VARCHAR},
-      province = #{province,jdbcType=INTEGER},
-      city = #{city,jdbcType=INTEGER},
-      district = #{district,jdbcType=INTEGER},
+      post_fee = #{postFee,jdbcType=DOUBLE},
+      receiver_province = #{receiverProvince,jdbcType=INTEGER},
+      receiver_city = #{receiverCity,jdbcType=INTEGER},
+      receiver_district = #{receiverDistrict,jdbcType=INTEGER},
+      receiver_name = #{receiverName,jdbcType=VARCHAR},
+      receiver_mobile = #{receiverMobile,jdbcType=VARCHAR},
       receiver_address = #{receiverAddress,jdbcType=VARCHAR},
+      buyer_remark = #{buyerRemark,jdbcType=VARCHAR},
       send_time = #{sendTime,jdbcType=TIMESTAMP},
-      send_name = #{sendName,jdbcType=VARCHAR},
+      sender_name = #{senderName,jdbcType=VARCHAR},
       follower = #{follower,jdbcType=VARCHAR},
       pay_method = #{payMethod,jdbcType=INTEGER},
       trade_no = #{tradeNo,jdbcType=VARCHAR},
       is_delete = #{isDelete,jdbcType=INTEGER},
       is_post = #{isPost,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where order_id = #{orderId,jdbcType=INTEGER}
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP}
+    where order_id = #{orderId,jdbcType=BIGINT}
   </update>
 </mapper>

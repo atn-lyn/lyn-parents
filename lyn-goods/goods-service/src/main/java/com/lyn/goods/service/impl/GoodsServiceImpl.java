@@ -5,8 +5,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.lyn.common.cache.CacheService;
 import com.lyn.goods.api.constants.GoodsConstant;
 import com.lyn.goods.api.entity.GoodsInfo;
+import com.lyn.goods.api.entity.GoodsSpecs;
 import com.lyn.goods.api.service.GoodsService;
 import com.lyn.goods.service.mapper.GoodsInfoMapper;
+import com.lyn.goods.service.mapper.GoodsSpecsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
@@ -23,6 +25,9 @@ public class GoodsServiceImpl implements GoodsService {
     private GoodsInfoMapper goodsInfoMapper;
 
     @Autowired
+    private GoodsSpecsMapper goodsSpecsMapper;
+
+    @Autowired
     private CacheService cacheService;
 
     @Override
@@ -31,9 +36,15 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public GoodsInfo findGoodsInfoByPrimary(int goodsId) throws Exception {
+    public GoodsInfo findGoodsInfoByPrimary(long goodsId) throws Exception {
         return goodsInfoMapper.selectByPrimaryKey(goodsId);
     }
+
+    @Override
+    public GoodsSpecs findGoodsSpecsByPrimary(int specsId) throws Exception {
+        return goodsSpecsMapper.selectByPrimaryKey(specsId);
+    }
+
 
     @Override
     public int addGoodsInfo(GoodsInfo goodsInfo) throws Exception {

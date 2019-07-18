@@ -58,9 +58,8 @@ public class GoodsController {
         }
         GoodsInfo goodsInfo = new GoodsInfo();
         goodsInfo.setGoodsName(jsonObj.getString("goodsName"));
-        goodsInfo.setGoodsCover(FileUtils.toShortUrl(jsonObj.getString("goodsCover")));
-        goodsInfo.setGoodsCover(FileUtils.toShortUrl(jsonObj.getString("goodsDetail")));
-        goodsInfo.setCreator(loginUser.getUserId());
+        goodsInfo.setGoodsImg(FileUtils.toShortUrl(jsonObj.getString("goodsCover")));
+        goodsInfo.setGoodsDetail(FileUtils.toShortUrl(jsonObj.getString("goodsDetail")));
         goodsService.addGoodsInfo(goodsInfo);
         return ResultUtils.success("ok");
     }
@@ -100,7 +99,7 @@ public class GoodsController {
     private GoodsInfo getGoodsInfo(int goodsId) throws Exception{
         GoodsInfo goods = goodsService.findGoodsInfoByPrimary(goodsId);
         if (goods != null) {
-            goods.setGoodsCover(StringUtils.isEmpty(goods.getGoodsCover())?null: FileUtils.toFullUrl(goods.getGoodsCover()));
+            goods.setGoodsImg(StringUtils.isEmpty(goods.getGoodsImg())?null: FileUtils.toFullUrl(goods.getGoodsImg()));
             Random random = new Random();
             if (goods.getIsHotSell()) {
                 //热门商品

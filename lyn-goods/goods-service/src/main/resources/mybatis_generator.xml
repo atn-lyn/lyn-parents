@@ -53,8 +53,23 @@
         <javaClientGenerator targetPackage="com.lyn.goods.service.mapper" targetProject="E:\personal_file\lyn-parents\lyn-goods\goods-service\src\main\java" type="XMLMAPPER" />
 
         <!-- 需要映射的表 -->
+        <table tableName="goods_category" domainObjectName="GoodsCategory">
+            <generatedKey column="category_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="goods_brand" domainObjectName="GoodsBrand">
+            <generatedKey column="brand_id" sqlStatement="MySql" identity="true"/>
+        </table>
         <table tableName="goods_info" domainObjectName="GoodsInfo">
             <generatedKey column="goods_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="goods_specs" domainObjectName="GoodsSpecs">
+            <generatedKey column="specs_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="goods_attribute_key" domainObjectName="GoodsAttributeKey">
+            <generatedKey column="attribute_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="goods_attribute_value" domainObjectName="GoodsAttributeValue">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
         </context>
 </generatorConfiguration>

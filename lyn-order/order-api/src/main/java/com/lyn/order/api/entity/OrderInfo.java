@@ -1,6 +1,7 @@
 package com.lyn.order.api.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class OrderInfo implements Serializable {
@@ -9,7 +10,7 @@ public class OrderInfo implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer orderId;
+    private Long orderId;
 
     /**
      * 订单编号
@@ -19,11 +20,11 @@ public class OrderInfo implements Serializable {
     private String orderNo;
 
     /**
-     * 订单状态：1待付款-2待发货-3待收货-4已完成-5已失效-6已取消
+     * 商铺id
      *
      * @mbg.generated
      */
-    private Integer orderStatus;
+    private Integer storeId;
 
     /**
      * 采购人id
@@ -33,67 +34,60 @@ public class OrderInfo implements Serializable {
     private Long customerId;
 
     /**
+     * 商品id
+     *
+     * @mbg.generated
+     */
+    private Integer goodsId;
+
+    /**
+     * 规格ID
+     *
+     * @mbg.generated
+     */
+    private Integer specsId;
+
+    /**
+     * 规格描述
+     *
+     * @mbg.generated
+     */
+    private String specsDesc;
+
+    /**
+     * 单价
+     *
+     * @mbg.generated
+     */
+    private BigDecimal sellPrice;
+
+    /**
+     * 销售数量
+     *
+     * @mbg.generated
+     */
+    private Integer sellNum;
+
+    /**
+     * 销售总金额
+     *
+     * @mbg.generated
+     */
+    private BigDecimal sellAmount;
+
+    /**
      * 总优惠金额
      *
      * @mbg.generated
      */
-    private Double totalDiscount;
+    private BigDecimal coupAmount;
 
     /**
-     * 收货人名称
+     * 订单状态：1待付款-2待发货-3待收货-4已完成-5已关闭
      *
      * @mbg.generated
      */
-    private String receiverName;
-
-    /**
-     * 收货人电话
-     *
-     * @mbg.generated
-     */
-    private String receiverMobile;
-
-    /**
-     * 买家备注
-     *
-     * @mbg.generated
-     */
-    private String buyerRemark;
-
-    /**
-     * 商品数量
-     *
-     * @mbg.generated
-     */
-    private Integer productNum;
-
-    /**
-     * 订单金额
-     *
-     * @mbg.generated
-     */
-    private Double orderAmount;
-
-    /**
-     * 实付金额
-     *
-     * @mbg.generated
-     */
-    private Double payAmount;
-
-    /**
-     * 付款时间
-     *
-     * @mbg.generated
-     */
-    private Date paymentTime;
-
-    /**
-     * 交易完成时间
-     *
-     * @mbg.generated
-     */
-    private Date endTime;
+    private Integer status;
 
     /**
      * 物流id
@@ -110,25 +104,46 @@ public class OrderInfo implements Serializable {
     private String shippingNo;
 
     /**
+     * 邮费
+     *
+     * @mbg.generated
+     */
+    private Double postFee;
+
+    /**
      * 省份
      *
      * @mbg.generated
      */
-    private Integer province;
+    private Integer receiverProvince;
 
     /**
      * 城市
      *
      * @mbg.generated
      */
-    private Integer city;
+    private Integer receiverCity;
 
     /**
      * 区/县
      *
      * @mbg.generated
      */
-    private Integer district;
+    private Integer receiverDistrict;
+
+    /**
+     * 收货人名称
+     *
+     * @mbg.generated
+     */
+    private String receiverName;
+
+    /**
+     * 收货人电话
+     *
+     * @mbg.generated
+     */
+    private String receiverMobile;
 
     /**
      * 收货地址
@@ -136,6 +151,13 @@ public class OrderInfo implements Serializable {
      * @mbg.generated
      */
     private String receiverAddress;
+
+    /**
+     * 买家备注
+     *
+     * @mbg.generated
+     */
+    private String buyerRemark;
 
     /**
      * 发货时间
@@ -149,7 +171,7 @@ public class OrderInfo implements Serializable {
      *
      * @mbg.generated
      */
-    private String sendName;
+    private String senderName;
 
     /**
      * 跟进人
@@ -200,13 +222,20 @@ public class OrderInfo implements Serializable {
      */
     private Date updateTime;
 
+    /**
+     * 交易完成时间
+     *
+     * @mbg.generated
+     */
+    private Date endTime;
+
     private static final long serialVersionUID = 1L;
 
-    public Integer getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Integer orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 
@@ -218,12 +247,12 @@ public class OrderInfo implements Serializable {
         this.orderNo = orderNo;
     }
 
-    public Integer getOrderStatus() {
-        return orderStatus;
+    public Integer getStoreId() {
+        return storeId;
     }
 
-    public void setOrderStatus(Integer orderStatus) {
-        this.orderStatus = orderStatus;
+    public void setStoreId(Integer storeId) {
+        this.storeId = storeId;
     }
 
     public Long getCustomerId() {
@@ -234,76 +263,68 @@ public class OrderInfo implements Serializable {
         this.customerId = customerId;
     }
 
-    public Double getTotalDiscount() {
-        return totalDiscount;
+    public Integer getGoodsId() {
+        return goodsId;
     }
 
-    public void setTotalDiscount(Double totalDiscount) {
-        this.totalDiscount = totalDiscount;
+    public void setGoodsId(Integer goodsId) {
+        this.goodsId = goodsId;
     }
 
-    public String getReceiverName() {
-        return receiverName;
+    public Integer getSpecsId() {
+        return specsId;
     }
 
-    public void setReceiverName(String receiverName) {
-        this.receiverName = receiverName;
+    public void setSpecsId(Integer specsId) {
+        this.specsId = specsId;
     }
 
-    public String getReceiverMobile() {
-        return receiverMobile;
+    public String getSpecsDesc() {
+        return specsDesc;
     }
 
-    public void setReceiverMobile(String receiverMobile) {
-        this.receiverMobile = receiverMobile;
+    public void setSpecsDesc(String specsDesc) {
+        this.specsDesc = specsDesc;
     }
 
-    public String getBuyerRemark() {
-        return buyerRemark;
+    public BigDecimal getSellPrice() {
+        return sellPrice;
     }
 
-    public void setBuyerRemark(String buyerRemark) {
-        this.buyerRemark = buyerRemark;
+    public void setSellPrice(BigDecimal sellPrice) {
+        this.sellPrice = sellPrice;
     }
 
-    public Integer getProductNum() {
-        return productNum;
+    public Integer getSellNum() {
+        return sellNum;
     }
 
-    public void setProductNum(Integer productNum) {
-        this.productNum = productNum;
+    public void setSellNum(Integer sellNum) {
+        this.sellNum = sellNum;
     }
 
-    public Double getOrderAmount() {
-        return orderAmount;
+    public BigDecimal getSellAmount() {
+        return sellAmount;
     }
 
-    public void setOrderAmount(Double orderAmount) {
-        this.orderAmount = orderAmount;
+    public void setSellAmount(BigDecimal sellAmount) {
+        this.sellAmount = sellAmount;
     }
 
-    public Double getPayAmount() {
-        return payAmount;
+    public BigDecimal getCoupAmount() {
+        return coupAmount;
     }
 
-    public void setPayAmount(Double payAmount) {
-        this.payAmount = payAmount;
+    public void setCoupAmount(BigDecimal coupAmount) {
+        this.coupAmount = coupAmount;
     }
 
-    public Date getPaymentTime() {
-        return paymentTime;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setPaymentTime(Date paymentTime) {
-        this.paymentTime = paymentTime;
-    }
-
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Long getLogisticsId() {
@@ -322,28 +343,52 @@ public class OrderInfo implements Serializable {
         this.shippingNo = shippingNo;
     }
 
-    public Integer getProvince() {
-        return province;
+    public Double getPostFee() {
+        return postFee;
     }
 
-    public void setProvince(Integer province) {
-        this.province = province;
+    public void setPostFee(Double postFee) {
+        this.postFee = postFee;
     }
 
-    public Integer getCity() {
-        return city;
+    public Integer getReceiverProvince() {
+        return receiverProvince;
     }
 
-    public void setCity(Integer city) {
-        this.city = city;
+    public void setReceiverProvince(Integer receiverProvince) {
+        this.receiverProvince = receiverProvince;
     }
 
-    public Integer getDistrict() {
-        return district;
+    public Integer getReceiverCity() {
+        return receiverCity;
     }
 
-    public void setDistrict(Integer district) {
-        this.district = district;
+    public void setReceiverCity(Integer receiverCity) {
+        this.receiverCity = receiverCity;
+    }
+
+    public Integer getReceiverDistrict() {
+        return receiverDistrict;
+    }
+
+    public void setReceiverDistrict(Integer receiverDistrict) {
+        this.receiverDistrict = receiverDistrict;
+    }
+
+    public String getReceiverName() {
+        return receiverName;
+    }
+
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
+    }
+
+    public String getReceiverMobile() {
+        return receiverMobile;
+    }
+
+    public void setReceiverMobile(String receiverMobile) {
+        this.receiverMobile = receiverMobile;
     }
 
     public String getReceiverAddress() {
@@ -354,6 +399,14 @@ public class OrderInfo implements Serializable {
         this.receiverAddress = receiverAddress;
     }
 
+    public String getBuyerRemark() {
+        return buyerRemark;
+    }
+
+    public void setBuyerRemark(String buyerRemark) {
+        this.buyerRemark = buyerRemark;
+    }
+
     public Date getSendTime() {
         return sendTime;
     }
@@ -362,12 +415,12 @@ public class OrderInfo implements Serializable {
         this.sendTime = sendTime;
     }
 
-    public String getSendName() {
-        return sendName;
+    public String getSenderName() {
+        return senderName;
     }
 
-    public void setSendName(String sendName) {
-        this.sendName = sendName;
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
     }
 
     public String getFollower() {
@@ -426,6 +479,14 @@ public class OrderInfo implements Serializable {
         this.updateTime = updateTime;
     }
 
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -434,25 +495,28 @@ public class OrderInfo implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", orderId=").append(orderId);
         sb.append(", orderNo=").append(orderNo);
-        sb.append(", orderStatus=").append(orderStatus);
+        sb.append(", storeId=").append(storeId);
         sb.append(", customerId=").append(customerId);
-        sb.append(", totalDiscount=").append(totalDiscount);
-        sb.append(", receiverName=").append(receiverName);
-        sb.append(", receiverMobile=").append(receiverMobile);
-        sb.append(", buyerRemark=").append(buyerRemark);
-        sb.append(", productNum=").append(productNum);
-        sb.append(", orderAmount=").append(orderAmount);
-        sb.append(", payAmount=").append(payAmount);
-        sb.append(", paymentTime=").append(paymentTime);
-        sb.append(", endTime=").append(endTime);
+        sb.append(", goodsId=").append(goodsId);
+        sb.append(", specsId=").append(specsId);
+        sb.append(", specsDesc=").append(specsDesc);
+        sb.append(", sellPrice=").append(sellPrice);
+        sb.append(", sellNum=").append(sellNum);
+        sb.append(", sellAmount=").append(sellAmount);
+        sb.append(", coupAmount=").append(coupAmount);
+        sb.append(", status=").append(status);
         sb.append(", logisticsId=").append(logisticsId);
         sb.append(", shippingNo=").append(shippingNo);
-        sb.append(", province=").append(province);
-        sb.append(", city=").append(city);
-        sb.append(", district=").append(district);
+        sb.append(", postFee=").append(postFee);
+        sb.append(", receiverProvince=").append(receiverProvince);
+        sb.append(", receiverCity=").append(receiverCity);
+        sb.append(", receiverDistrict=").append(receiverDistrict);
+        sb.append(", receiverName=").append(receiverName);
+        sb.append(", receiverMobile=").append(receiverMobile);
         sb.append(", receiverAddress=").append(receiverAddress);
+        sb.append(", buyerRemark=").append(buyerRemark);
         sb.append(", sendTime=").append(sendTime);
-        sb.append(", sendName=").append(sendName);
+        sb.append(", senderName=").append(senderName);
         sb.append(", follower=").append(follower);
         sb.append(", payMethod=").append(payMethod);
         sb.append(", tradeNo=").append(tradeNo);
@@ -460,6 +524,7 @@ public class OrderInfo implements Serializable {
         sb.append(", isPost=").append(isPost);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
+        sb.append(", endTime=").append(endTime);
         sb.append("]");
         return sb.toString();
     }
@@ -478,32 +543,36 @@ public class OrderInfo implements Serializable {
         OrderInfo other = (OrderInfo) that;
         return (this.getOrderId() == null ? other.getOrderId() == null : this.getOrderId().equals(other.getOrderId()))
             && (this.getOrderNo() == null ? other.getOrderNo() == null : this.getOrderNo().equals(other.getOrderNo()))
-            && (this.getOrderStatus() == null ? other.getOrderStatus() == null : this.getOrderStatus().equals(other.getOrderStatus()))
+            && (this.getStoreId() == null ? other.getStoreId() == null : this.getStoreId().equals(other.getStoreId()))
             && (this.getCustomerId() == null ? other.getCustomerId() == null : this.getCustomerId().equals(other.getCustomerId()))
-            && (this.getTotalDiscount() == null ? other.getTotalDiscount() == null : this.getTotalDiscount().equals(other.getTotalDiscount()))
-            && (this.getReceiverName() == null ? other.getReceiverName() == null : this.getReceiverName().equals(other.getReceiverName()))
-            && (this.getReceiverMobile() == null ? other.getReceiverMobile() == null : this.getReceiverMobile().equals(other.getReceiverMobile()))
-            && (this.getBuyerRemark() == null ? other.getBuyerRemark() == null : this.getBuyerRemark().equals(other.getBuyerRemark()))
-            && (this.getProductNum() == null ? other.getProductNum() == null : this.getProductNum().equals(other.getProductNum()))
-            && (this.getOrderAmount() == null ? other.getOrderAmount() == null : this.getOrderAmount().equals(other.getOrderAmount()))
-            && (this.getPayAmount() == null ? other.getPayAmount() == null : this.getPayAmount().equals(other.getPayAmount()))
-            && (this.getPaymentTime() == null ? other.getPaymentTime() == null : this.getPaymentTime().equals(other.getPaymentTime()))
-            && (this.getEndTime() == null ? other.getEndTime() == null : this.getEndTime().equals(other.getEndTime()))
+            && (this.getGoodsId() == null ? other.getGoodsId() == null : this.getGoodsId().equals(other.getGoodsId()))
+            && (this.getSpecsId() == null ? other.getSpecsId() == null : this.getSpecsId().equals(other.getSpecsId()))
+            && (this.getSpecsDesc() == null ? other.getSpecsDesc() == null : this.getSpecsDesc().equals(other.getSpecsDesc()))
+            && (this.getSellPrice() == null ? other.getSellPrice() == null : this.getSellPrice().equals(other.getSellPrice()))
+            && (this.getSellNum() == null ? other.getSellNum() == null : this.getSellNum().equals(other.getSellNum()))
+            && (this.getSellAmount() == null ? other.getSellAmount() == null : this.getSellAmount().equals(other.getSellAmount()))
+            && (this.getCoupAmount() == null ? other.getCoupAmount() == null : this.getCoupAmount().equals(other.getCoupAmount()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getLogisticsId() == null ? other.getLogisticsId() == null : this.getLogisticsId().equals(other.getLogisticsId()))
             && (this.getShippingNo() == null ? other.getShippingNo() == null : this.getShippingNo().equals(other.getShippingNo()))
-            && (this.getProvince() == null ? other.getProvince() == null : this.getProvince().equals(other.getProvince()))
-            && (this.getCity() == null ? other.getCity() == null : this.getCity().equals(other.getCity()))
-            && (this.getDistrict() == null ? other.getDistrict() == null : this.getDistrict().equals(other.getDistrict()))
+            && (this.getPostFee() == null ? other.getPostFee() == null : this.getPostFee().equals(other.getPostFee()))
+            && (this.getReceiverProvince() == null ? other.getReceiverProvince() == null : this.getReceiverProvince().equals(other.getReceiverProvince()))
+            && (this.getReceiverCity() == null ? other.getReceiverCity() == null : this.getReceiverCity().equals(other.getReceiverCity()))
+            && (this.getReceiverDistrict() == null ? other.getReceiverDistrict() == null : this.getReceiverDistrict().equals(other.getReceiverDistrict()))
+            && (this.getReceiverName() == null ? other.getReceiverName() == null : this.getReceiverName().equals(other.getReceiverName()))
+            && (this.getReceiverMobile() == null ? other.getReceiverMobile() == null : this.getReceiverMobile().equals(other.getReceiverMobile()))
             && (this.getReceiverAddress() == null ? other.getReceiverAddress() == null : this.getReceiverAddress().equals(other.getReceiverAddress()))
+            && (this.getBuyerRemark() == null ? other.getBuyerRemark() == null : this.getBuyerRemark().equals(other.getBuyerRemark()))
             && (this.getSendTime() == null ? other.getSendTime() == null : this.getSendTime().equals(other.getSendTime()))
-            && (this.getSendName() == null ? other.getSendName() == null : this.getSendName().equals(other.getSendName()))
+            && (this.getSenderName() == null ? other.getSenderName() == null : this.getSenderName().equals(other.getSenderName()))
             && (this.getFollower() == null ? other.getFollower() == null : this.getFollower().equals(other.getFollower()))
             && (this.getPayMethod() == null ? other.getPayMethod() == null : this.getPayMethod().equals(other.getPayMethod()))
             && (this.getTradeNo() == null ? other.getTradeNo() == null : this.getTradeNo().equals(other.getTradeNo()))
             && (this.getIsDelete() == null ? other.getIsDelete() == null : this.getIsDelete().equals(other.getIsDelete()))
             && (this.getIsPost() == null ? other.getIsPost() == null : this.getIsPost().equals(other.getIsPost()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
+            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
+            && (this.getEndTime() == null ? other.getEndTime() == null : this.getEndTime().equals(other.getEndTime()));
     }
 
     @Override
@@ -512,25 +581,28 @@ public class OrderInfo implements Serializable {
         int result = 1;
         result = prime * result + ((getOrderId() == null) ? 0 : getOrderId().hashCode());
         result = prime * result + ((getOrderNo() == null) ? 0 : getOrderNo().hashCode());
-        result = prime * result + ((getOrderStatus() == null) ? 0 : getOrderStatus().hashCode());
+        result = prime * result + ((getStoreId() == null) ? 0 : getStoreId().hashCode());
         result = prime * result + ((getCustomerId() == null) ? 0 : getCustomerId().hashCode());
-        result = prime * result + ((getTotalDiscount() == null) ? 0 : getTotalDiscount().hashCode());
-        result = prime * result + ((getReceiverName() == null) ? 0 : getReceiverName().hashCode());
-        result = prime * result + ((getReceiverMobile() == null) ? 0 : getReceiverMobile().hashCode());
-        result = prime * result + ((getBuyerRemark() == null) ? 0 : getBuyerRemark().hashCode());
-        result = prime * result + ((getProductNum() == null) ? 0 : getProductNum().hashCode());
-        result = prime * result + ((getOrderAmount() == null) ? 0 : getOrderAmount().hashCode());
-        result = prime * result + ((getPayAmount() == null) ? 0 : getPayAmount().hashCode());
-        result = prime * result + ((getPaymentTime() == null) ? 0 : getPaymentTime().hashCode());
-        result = prime * result + ((getEndTime() == null) ? 0 : getEndTime().hashCode());
+        result = prime * result + ((getGoodsId() == null) ? 0 : getGoodsId().hashCode());
+        result = prime * result + ((getSpecsId() == null) ? 0 : getSpecsId().hashCode());
+        result = prime * result + ((getSpecsDesc() == null) ? 0 : getSpecsDesc().hashCode());
+        result = prime * result + ((getSellPrice() == null) ? 0 : getSellPrice().hashCode());
+        result = prime * result + ((getSellNum() == null) ? 0 : getSellNum().hashCode());
+        result = prime * result + ((getSellAmount() == null) ? 0 : getSellAmount().hashCode());
+        result = prime * result + ((getCoupAmount() == null) ? 0 : getCoupAmount().hashCode());
+        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getLogisticsId() == null) ? 0 : getLogisticsId().hashCode());
         result = prime * result + ((getShippingNo() == null) ? 0 : getShippingNo().hashCode());
-        result = prime * result + ((getProvince() == null) ? 0 : getProvince().hashCode());
-        result = prime * result + ((getCity() == null) ? 0 : getCity().hashCode());
-        result = prime * result + ((getDistrict() == null) ? 0 : getDistrict().hashCode());
+        result = prime * result + ((getPostFee() == null) ? 0 : getPostFee().hashCode());
+        result = prime * result + ((getReceiverProvince() == null) ? 0 : getReceiverProvince().hashCode());
+        result = prime * result + ((getReceiverCity() == null) ? 0 : getReceiverCity().hashCode());
+        result = prime * result + ((getReceiverDistrict() == null) ? 0 : getReceiverDistrict().hashCode());
+        result = prime * result + ((getReceiverName() == null) ? 0 : getReceiverName().hashCode());
+        result = prime * result + ((getReceiverMobile() == null) ? 0 : getReceiverMobile().hashCode());
         result = prime * result + ((getReceiverAddress() == null) ? 0 : getReceiverAddress().hashCode());
+        result = prime * result + ((getBuyerRemark() == null) ? 0 : getBuyerRemark().hashCode());
         result = prime * result + ((getSendTime() == null) ? 0 : getSendTime().hashCode());
-        result = prime * result + ((getSendName() == null) ? 0 : getSendName().hashCode());
+        result = prime * result + ((getSenderName() == null) ? 0 : getSenderName().hashCode());
         result = prime * result + ((getFollower() == null) ? 0 : getFollower().hashCode());
         result = prime * result + ((getPayMethod() == null) ? 0 : getPayMethod().hashCode());
         result = prime * result + ((getTradeNo() == null) ? 0 : getTradeNo().hashCode());
@@ -538,6 +610,7 @@ public class OrderInfo implements Serializable {
         result = prime * result + ((getIsPost() == null) ? 0 : getIsPost().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
+        result = prime * result + ((getEndTime() == null) ? 0 : getEndTime().hashCode());
         return result;
     }
 }
