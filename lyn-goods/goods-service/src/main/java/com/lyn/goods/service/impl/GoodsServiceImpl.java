@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.lyn.common.cache.CacheService;
 import com.lyn.goods.api.constants.GoodsConstant;
 import com.lyn.goods.api.entity.GoodsInfo;
+import com.lyn.goods.api.entity.GoodsInfoExample;
 import com.lyn.goods.api.entity.GoodsSpecs;
 import com.lyn.goods.api.service.GoodsService;
 import com.lyn.goods.service.mapper.GoodsInfoMapper;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -53,6 +55,16 @@ public class GoodsServiceImpl implements GoodsService {
 
         goodsInfo.setCreateTime(dt);
         return goodsInfoMapper.insert(goodsInfo);
+    }
+
+    @Override
+    public List<GoodsInfo> findList(GoodsInfo goodsInfo) throws Exception {
+        GoodsInfoExample example = new GoodsInfoExample();
+        GoodsInfoExample.Criteria criteria = example.createCriteria();
+        if (goodsInfo != null && goodsInfo.getGoodsName() != null){
+            criteria.andGoodsNameLike(goodsInfo.getGoodsName()+"%");
+        }
+        return goodsInfoMapper.selectByExample(example);
     }
 
     @KafkaListener(topics = {GoodsConstant.KAFKA_STATISTICS_GOODS_BYID})

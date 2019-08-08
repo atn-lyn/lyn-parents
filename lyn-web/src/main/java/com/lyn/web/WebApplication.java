@@ -14,6 +14,8 @@ import org.springframework.context.annotation.Import;
 public class WebApplication {
 
     public static void main(String[] args) {
+        // Springboot整合Elasticsearch 在项目启动前设置一下的属性，防止报错
+        System.setProperty("es.set.netty.runtime.available.processors","false");
         SpringApplication.run(WebApplication.class,args);
     }
 }

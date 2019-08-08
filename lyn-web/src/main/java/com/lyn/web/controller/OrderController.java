@@ -1,5 +1,6 @@
 package com.lyn.web.controller;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSONObject;
 import com.lyn.common.exception.ExceptionEnum;
 import com.lyn.common.utils.RequestStr;
@@ -27,10 +28,10 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/api/order/")
 public class OrderController {
 
-    @Autowired
+    @Reference(version = "1.0.0")
     private OrderService orderService;
 
-    @Autowired
+    @Reference(version = "1.0.0")
     private GoodsService goodsService;
 
     @RequestMapping(value = "preorder",method = RequestMethod.POST)

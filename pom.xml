@@ -34,6 +34,7 @@
         <lyn-customer.version>1.0</lyn-customer.version>
         <lyn-goods.version>1.0</lyn-goods.version>
         <lyn-order.version>1.0</lyn-order.version>
+        <lyn-tcc.version>1.0</lyn-tcc.version>
         <lyn-web.version>1.0</lyn-web.version>
         <!-- 依赖Jar版本 -->
         <alibaba-dubbo.version>0.2.0</alibaba-dubbo.version>
@@ -55,6 +56,15 @@
         <fastdfs-client.version>1.26.2</fastdfs-client.version>
         <org-redisson.version>3.7.5</org-redisson.version>
         <apache-curator.version>4.2.0</apache-curator.version>
+        <!-- kafka -->
+        <kafka.version>2.2.0.RELEASE</kafka.version>
+        <kafka-client.version>2.0.0</kafka-client.version>
+        <!--  spring boot elasticsearch -->
+        <spring-elasticsearch.version>2.1.4.RELEASE</spring-elasticsearch.version>
+        <!-- elasticsearch client -->
+        <elasticsearch-client.version>6.6.2</elasticsearch-client.version>
+        <!-- spring data -->
+        <spring-data.version>2.1.2.RELEASE</spring-data.version>
     </properties>
 
     <!-- SpringBoot基础依赖 -->
@@ -154,6 +164,17 @@
                 <artifactId>redisson</artifactId>
                 <version>${org-redisson.version}</version>
             </dependency>
+            <!-- kafka -->
+            <dependency>
+                <groupId>org.springframework.kafka</groupId>
+                <artifactId>spring-kafka</artifactId>
+                <version>${kafka.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-clients</artifactId>
+                <version>${kafka-client.version}</version>
+            </dependency>
             <!-- curator (zk lock) -->
             <dependency>
                 <groupId>org.apache.curator</groupId>
@@ -176,6 +197,17 @@
                         <artifactId>slf4j-api</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+            <!-- elasticsearch -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+                <version>${spring-elasticsearch.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                <version>${elasticsearch-client.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

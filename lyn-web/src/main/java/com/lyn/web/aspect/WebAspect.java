@@ -69,7 +69,7 @@ public class WebAspect {
         try {
             clock.start();
             //处理入参特殊字符和sql注入攻击
-            checkRequestParam(pjp);
+            //checkRequestParam(pjp);
             //执行访问接口操作
             result = pjp.proceed();
             clock.stop();
