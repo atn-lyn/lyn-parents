@@ -1,6 +1,7 @@
 package com.lyn.customer.api.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class CustomerInfo implements Serializable {
     /**
@@ -8,21 +9,21 @@ public class CustomerInfo implements Serializable {
      *
      * @mbg.generated
      */
-    private Long customerId;
+    private Integer customerId;
 
     /**
-     * 类别(对应RoleID)
+     * 分类
      *
      * @mbg.generated
      */
     private Integer category;
 
     /**
-     * 等级(供应商) A-A级，B-B级，C-C级，D-D级
+     * 级别
      *
      * @mbg.generated
      */
-    private String grade;
+    private Integer grade;
 
     /**
      * 客户编号
@@ -32,28 +33,28 @@ public class CustomerInfo implements Serializable {
     private String customerNo;
 
     /**
-     * 公司名称
+     * 客户名称
      *
      * @mbg.generated
      */
     private String customerName;
 
     /**
-     * 客户类型：1-平台商，2-采购商，3，供应商, 4-
+     * 客户类型
      *
      * @mbg.generated
      */
     private Integer customerType;
 
     /**
-     * 公司简称
+     * 简称	
      *
      * @mbg.generated
      */
     private String nickName;
 
     /**
-     * 公司电话
+     * 电话
      *
      * @mbg.generated
      */
@@ -81,166 +82,159 @@ public class CustomerInfo implements Serializable {
     private String district;
 
     /**
-     * 详细地址 
+     * 详细地址
      *
      * @mbg.generated
      */
     private String address;
 
     /**
-     * 联系人 
+     * 联系人
      *
      * @mbg.generated
      */
     private String contact;
 
     /**
-     * 联系人电话 
+     * 联系人电话
      *
      * @mbg.generated
      */
     private String mobile;
 
     /**
-     * 公司邮箱  
+     * 邮箱
      *
      * @mbg.generated
      */
     private String email;
 
     /**
-     * 传真号码  
+     * 传真号码
      *
      * @mbg.generated
      */
     private String fax;
 
     /**
-     * 注册时间 
+     * 注册时间
      *
      * @mbg.generated
      */
-    private String registDate;
+    private Date registDate;
 
     /**
-     * 公司介绍 
+     * 公司介绍
      *
      * @mbg.generated
      */
     private String description;
 
     /**
-     * (采购商)来源 1-自己注册，2-平台注册，3-茶博会，4-推广，5其他 
+     * 来源
      *
      * @mbg.generated
      */
     private Integer source;
 
     /**
-     * (采购商)渠道部跟进人
-     *
-     * @mbg.generated
-     */
-    private String chanFollower;
-
-    /**
-     * (供应商)合作部跟进人
-     *
-     * @mbg.generated
-     */
-    private String coopeFollower;
-
-    /**
-     * 用户状态 0-禁用，1-启用 
-     *
-     * @mbg.generated
-     */
-    private Integer status;
-
-    /**
-     * 审核状态 1-待完善，2-待审核，3-待复核，4-已通过，5，未通过
-     *
-     * @mbg.generated
-     */
-    private Integer confirmStatus;
-
-    /**
-     * 审核日期 
-     *
-     * @mbg.generated
-     */
-    private String confirmDate;
-
-    /**
-     * 创建人 
-     *
-     * @mbg.generated
-     */
-    private String createBy;
-
-    /**
-     * 创建时间 
-     *
-     * @mbg.generated
-     */
-    private String createDate;
-
-    /**
-     * 更新人 
-     *
-     * @mbg.generated
-     */
-    private String updateBy;
-
-    /**
-     * 更新时间 
-     *
-     * @mbg.generated
-     */
-    private String updateDate;
-
-    /**
-     * 备注1
-     *
-     * @mbg.generated
-     */
-    private String remark;
-
-    /**
-     * 身份证照片（正反面） 
+     * 证件照片
      *
      * @mbg.generated
      */
     private String cardId;
 
     /**
-     * 营业执照 
+     * 营业执照
      *
      * @mbg.generated
      */
     private String license;
 
     /**
-     * 营业许可证 
+     * 营业许可证
      *
      * @mbg.generated
      */
     private String permit;
 
     /**
-     * 店铺照片 
+     * 店铺照片
      *
      * @mbg.generated
      */
     private String storePhoto;
 
+    /**
+     * 跟进入
+     *
+     * @mbg.generated
+     */
+    private String follower;
+
+    /**
+     * 用户状态 0-禁用，1-启用
+     *
+     * @mbg.generated
+     */
+    private Integer status;
+
+    /**
+     * 审核状态
+     *
+     * @mbg.generated
+     */
+    private Integer confirmStatus;
+
+    /**
+     * 审核时间
+     *
+     * @mbg.generated
+     */
+    private Date confirmDate;
+
+    /**
+     * 创建人
+     *
+     * @mbg.generated
+     */
+    private String createBy;
+
+    /**
+     * 创建时间
+     *
+     * @mbg.generated
+     */
+    private Date createDate;
+
+    /**
+     * 更新人
+     *
+     * @mbg.generated
+     */
+    private String updateBy;
+
+    /**
+     * 更新时间
+     *
+     * @mbg.generated
+     */
+    private Date updateDate;
+
+    /**
+     * 备注
+     *
+     * @mbg.generated
+     */
+    private String remark;
+
     private static final long serialVersionUID = 1L;
 
-    public Long getCustomerId() {
+    public Integer getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Long customerId) {
+    public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
     }
 
@@ -252,11 +246,11 @@ public class CustomerInfo implements Serializable {
         this.category = category;
     }
 
-    public String getGrade() {
+    public Integer getGrade() {
         return grade;
     }
 
-    public void setGrade(String grade) {
+    public void setGrade(Integer grade) {
         this.grade = grade;
     }
 
@@ -364,11 +358,11 @@ public class CustomerInfo implements Serializable {
         this.fax = fax;
     }
 
-    public String getRegistDate() {
+    public Date getRegistDate() {
         return registDate;
     }
 
-    public void setRegistDate(String registDate) {
+    public void setRegistDate(Date registDate) {
         this.registDate = registDate;
     }
 
@@ -386,86 +380,6 @@ public class CustomerInfo implements Serializable {
 
     public void setSource(Integer source) {
         this.source = source;
-    }
-
-    public String getChanFollower() {
-        return chanFollower;
-    }
-
-    public void setChanFollower(String chanFollower) {
-        this.chanFollower = chanFollower;
-    }
-
-    public String getCoopeFollower() {
-        return coopeFollower;
-    }
-
-    public void setCoopeFollower(String coopeFollower) {
-        this.coopeFollower = coopeFollower;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public Integer getConfirmStatus() {
-        return confirmStatus;
-    }
-
-    public void setConfirmStatus(Integer confirmStatus) {
-        this.confirmStatus = confirmStatus;
-    }
-
-    public String getConfirmDate() {
-        return confirmDate;
-    }
-
-    public void setConfirmDate(String confirmDate) {
-        this.confirmDate = confirmDate;
-    }
-
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
-
-    public String getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
-    }
-
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    public String getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(String updateDate) {
-        this.updateDate = updateDate;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
     }
 
     public String getCardId() {
@@ -500,6 +414,78 @@ public class CustomerInfo implements Serializable {
         this.storePhoto = storePhoto;
     }
 
+    public String getFollower() {
+        return follower;
+    }
+
+    public void setFollower(String follower) {
+        this.follower = follower;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Integer getConfirmStatus() {
+        return confirmStatus;
+    }
+
+    public void setConfirmStatus(Integer confirmStatus) {
+        this.confirmStatus = confirmStatus;
+    }
+
+    public Date getConfirmDate() {
+        return confirmDate;
+    }
+
+    public void setConfirmDate(Date confirmDate) {
+        this.confirmDate = confirmDate;
+    }
+
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public String getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(String updateBy) {
+        this.updateBy = updateBy;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -525,8 +511,11 @@ public class CustomerInfo implements Serializable {
         sb.append(", registDate=").append(registDate);
         sb.append(", description=").append(description);
         sb.append(", source=").append(source);
-        sb.append(", chanFollower=").append(chanFollower);
-        sb.append(", coopeFollower=").append(coopeFollower);
+        sb.append(", cardId=").append(cardId);
+        sb.append(", license=").append(license);
+        sb.append(", permit=").append(permit);
+        sb.append(", storePhoto=").append(storePhoto);
+        sb.append(", follower=").append(follower);
         sb.append(", status=").append(status);
         sb.append(", confirmStatus=").append(confirmStatus);
         sb.append(", confirmDate=").append(confirmDate);
@@ -535,10 +524,6 @@ public class CustomerInfo implements Serializable {
         sb.append(", updateBy=").append(updateBy);
         sb.append(", updateDate=").append(updateDate);
         sb.append(", remark=").append(remark);
-        sb.append(", cardId=").append(cardId);
-        sb.append(", license=").append(license);
-        sb.append(", permit=").append(permit);
-        sb.append(", storePhoto=").append(storePhoto);
         sb.append("]");
         return sb.toString();
     }
@@ -574,8 +559,11 @@ public class CustomerInfo implements Serializable {
             && (this.getRegistDate() == null ? other.getRegistDate() == null : this.getRegistDate().equals(other.getRegistDate()))
             && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
             && (this.getSource() == null ? other.getSource() == null : this.getSource().equals(other.getSource()))
-            && (this.getChanFollower() == null ? other.getChanFollower() == null : this.getChanFollower().equals(other.getChanFollower()))
-            && (this.getCoopeFollower() == null ? other.getCoopeFollower() == null : this.getCoopeFollower().equals(other.getCoopeFollower()))
+            && (this.getCardId() == null ? other.getCardId() == null : this.getCardId().equals(other.getCardId()))
+            && (this.getLicense() == null ? other.getLicense() == null : this.getLicense().equals(other.getLicense()))
+            && (this.getPermit() == null ? other.getPermit() == null : this.getPermit().equals(other.getPermit()))
+            && (this.getStorePhoto() == null ? other.getStorePhoto() == null : this.getStorePhoto().equals(other.getStorePhoto()))
+            && (this.getFollower() == null ? other.getFollower() == null : this.getFollower().equals(other.getFollower()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getConfirmStatus() == null ? other.getConfirmStatus() == null : this.getConfirmStatus().equals(other.getConfirmStatus()))
             && (this.getConfirmDate() == null ? other.getConfirmDate() == null : this.getConfirmDate().equals(other.getConfirmDate()))
@@ -583,11 +571,7 @@ public class CustomerInfo implements Serializable {
             && (this.getCreateDate() == null ? other.getCreateDate() == null : this.getCreateDate().equals(other.getCreateDate()))
             && (this.getUpdateBy() == null ? other.getUpdateBy() == null : this.getUpdateBy().equals(other.getUpdateBy()))
             && (this.getUpdateDate() == null ? other.getUpdateDate() == null : this.getUpdateDate().equals(other.getUpdateDate()))
-            && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
-            && (this.getCardId() == null ? other.getCardId() == null : this.getCardId().equals(other.getCardId()))
-            && (this.getLicense() == null ? other.getLicense() == null : this.getLicense().equals(other.getLicense()))
-            && (this.getPermit() == null ? other.getPermit() == null : this.getPermit().equals(other.getPermit()))
-            && (this.getStorePhoto() == null ? other.getStorePhoto() == null : this.getStorePhoto().equals(other.getStorePhoto()));
+            && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()));
     }
 
     @Override
@@ -613,8 +597,11 @@ public class CustomerInfo implements Serializable {
         result = prime * result + ((getRegistDate() == null) ? 0 : getRegistDate().hashCode());
         result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
         result = prime * result + ((getSource() == null) ? 0 : getSource().hashCode());
-        result = prime * result + ((getChanFollower() == null) ? 0 : getChanFollower().hashCode());
-        result = prime * result + ((getCoopeFollower() == null) ? 0 : getCoopeFollower().hashCode());
+        result = prime * result + ((getCardId() == null) ? 0 : getCardId().hashCode());
+        result = prime * result + ((getLicense() == null) ? 0 : getLicense().hashCode());
+        result = prime * result + ((getPermit() == null) ? 0 : getPermit().hashCode());
+        result = prime * result + ((getStorePhoto() == null) ? 0 : getStorePhoto().hashCode());
+        result = prime * result + ((getFollower() == null) ? 0 : getFollower().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getConfirmStatus() == null) ? 0 : getConfirmStatus().hashCode());
         result = prime * result + ((getConfirmDate() == null) ? 0 : getConfirmDate().hashCode());
@@ -623,10 +610,6 @@ public class CustomerInfo implements Serializable {
         result = prime * result + ((getUpdateBy() == null) ? 0 : getUpdateBy().hashCode());
         result = prime * result + ((getUpdateDate() == null) ? 0 : getUpdateDate().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
-        result = prime * result + ((getCardId() == null) ? 0 : getCardId().hashCode());
-        result = prime * result + ((getLicense() == null) ? 0 : getLicense().hashCode());
-        result = prime * result + ((getPermit() == null) ? 0 : getPermit().hashCode());
-        result = prime * result + ((getStorePhoto() == null) ? 0 : getStorePhoto().hashCode());
         return result;
     }
 }

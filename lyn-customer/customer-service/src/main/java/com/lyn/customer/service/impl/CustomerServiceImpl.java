@@ -20,7 +20,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerInfo findCustomerInfoByPrimary(long customerId) throws Exception {
+    public CustomerInfo findCustomerInfoByPrimary(Integer customerId) throws Exception {
         return customerInfoMapper.selectByPrimaryKey(customerId);
     }
 }
