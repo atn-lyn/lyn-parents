@@ -28,6 +28,6 @@ ElasticSearch的接入实现
 
 一个有温度有灵魂的技术微信公众号，期待与你共同进步，分享各种Java项目开发及学习资源
 
-![输入图片说明](http://files.teayk.com/group1/M00/02/59/rBIXwVvcBcqAIkyQAAGo137Lc_g783.jpg)
+![image](https://github.com/atn-lyn/lyn-parents/blob/master/wxqr.png)
 
-（http://files.teayk.com/group1/M00/03/49/rBIXwV1c5MGAJowYAAOrlfOrVNY758.png)
+ 
