@@ -48,7 +48,7 @@
         <alibaba-fastjson.version>1.2.6</alibaba-fastjson.version>
         <data-redis.version>2.1.2.RELEASE</data-redis.version>
         <commons-pool2.version>2.5.0</commons-pool2.version>
-        <jackson-databind.version>2.9.6</jackson-databind.version>
+        <jackson-databind.version>2.12.6.1</jackson-databind.version>
         <!-- kafuka -->
         <kafka.version>2.2.0.RELEASE</kafka.version>
         <kafka-client.version>2.0.0</kafka-client.version>
